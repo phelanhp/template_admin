@@ -1,67 +1,151 @@
+@import "mixins";
+
 $main-fade-color: #9a9a9a;
 $main-color: #717171;
 
-.topbar {
-  background-color: $main-fade-color;
-  padding-left: 220px;
-  width: 100%;
-  height: 60px;
-  position: fixed;
+* {
+    font-size: 14px;
+}
 
-  .right-sidebar{
-    padding: 20px;
-    width: 140px;
-    height: 60px;
-    border-left: 1px solid #afafaf;
-    position: relative;
+body {
+    background-color: #cecece6e;
+}
 
-    ul {
-      background-color: white;
-      width: 200px;
-      position: absolute;
+footer {
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
+    background-color: #ffffff;
+    width: 100%;
+    @include desktop {
+        margin-left: 220px;
     }
-  }
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.topbar {
+    background-color: $main-fade-color;
+    width: 100%;
+    height: 60px;
+    position: fixed;
+    z-index: 9999;
+
+    .logo {
+        background-color: #848484;
+        width: 220px;
+
+        img {
+            width: 100px;
+            height: 60px;
+
+            @include mobile {
+                display: none;
+            }
+        }
+
+        .menu-button {
+            &:focus {
+                box-shadow: none;
+            }
+
+            @include mobile {
+                top: 63px;
+                left: 3px;
+                background-color: $main-color !important;
+                color: white;
+                width: 60px;
+            }
+        }
+
+        @include mobile {
+            width: 100px;
+            background-color: transparent;
+        }
+    }
+
+    .right-sidebar {
+        padding: 20px;
+        width: 140px;
+        height: 60px;
+        border-left: 1px solid #afafaf;
+        position: relative;
+
+        ul {
+            background-color: white;
+            padding: 10px;
+            position: absolute;
+            right: 0;
+            top: 60px;
+            width: 140px;
+            box-shadow: -4px 3px 9px #88888847;
+        }
+    }
 }
 
 .left-sidebar {
-  width: 220px;
-  height: 100%;
-  position: fixed;
-  box-shadow: 0 0 51px -10px #888888;
+    background-color: #ffffff;
+    width: 220px;
+    height: 100%;
+    padding-top: 60px;
+    position: fixed;
+    box-shadow: 0 0 51px -10px #888888;
+    z-index: 99;
 
-  .logo {
-    background-color: #848484;
-    height: 60px;
-
-    img {
-      width: 100px;
-      height: 60px;
+    @include mobile {
+        left: -220px;
+        display: none;
     }
-  }
+}
 
-  .menu{
-    padding: 10px 10px 0 20px;
+.menu-sidebar {
+    padding: 10px 0;
 
-    li{
-      padding: 5px 0;
-      cursor: pointer;
-      color: $main-fade-color !important;
+    li {
+        cursor: pointer;
+        color: $main-color;
+        margin: 15px 0;
 
-      a{
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 14px;
-        color: inherit;
+        a {
+            font-weight: 600;
+            color: inherit;
+            display: block;
+            padding: 0 10px 0 20px;
 
-        i{
-          font-size: 16px;
+            i {
+                font-size: 16px;
+                width: 20px;
+            }
+
+            &.hide-title-link {
+                position: relative;
+            }
+
+            span.hide-title {
+                position: absolute;
+                left: 42px;
+                width: 220px;
+                background: white;
+                padding: 10px 10px;
+                top: -10px;
+                box-shadow: 4px 5px 15px #ababab;
+            }
         }
-      }
 
-      &:hover, &.active{
-        color: $main-color !important;
-      }
+        ul.list-child-hide {
+            position: absolute;
+            left: 30px;
+            z-index: 999;
+            background: white;
+            width: 220px;
+            top: -12px;
+            box-shadow: 4px 5px 15px #ababab;
+        }
+
+        &:hover, &.active {
+            color: #000000;
+        }
     }
-  }
-
 }
