@@ -100,13 +100,12 @@ a {
 .menu-sidebar li {
   cursor: pointer;
   color: #717171;
-  margin: 15px 0;
 }
 .menu-sidebar li a {
   font-weight: 600;
   color: inherit;
   display: block;
-  padding: 0 10px 0 20px;
+  padding: 15px 10px 15px 20px;
 }
 .menu-sidebar li a i {
   font-size: 16px;
