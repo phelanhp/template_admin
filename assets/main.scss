@@ -9,11 +9,10 @@ $main-color: #717171;
 
 body {
     background-color: #cecece6e;
+    overflow-x: hidden;
 }
 
 footer {
-    position: absolute;
-    bottom: 0;
     padding: 10px;
     background-color: #ffffff;
     width: 100%;
@@ -22,8 +21,14 @@ footer {
     }
 }
 
+
 a {
     text-decoration: none !important;
+}
+.clearfix {
+    display: block;
+    content: "";
+    clear: both;
 }
 
 .topbar {
@@ -128,8 +133,9 @@ a {
                 width: 220px;
                 background: white;
                 padding: 10px 10px;
-                top: -10px;
+                top: 0;
                 box-shadow: 4px 5px 15px #ababab;
+                display: none;
             }
         }
 
@@ -139,12 +145,22 @@ a {
             z-index: 999;
             background: white;
             width: 220px;
-            top: -12px;
+            top: 130px;
             box-shadow: 4px 5px 15px #ababab;
         }
 
         &:hover, &.active {
             color: #000000;
         }
+    }
+}
+
+.page-wrapper {
+    margin-bottom: 30px;
+    padding-top: 60px;
+    margin-left: 220px;
+
+    @include desktop{
+        min-width: 1020px;
     }
 }

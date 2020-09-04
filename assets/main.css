@@ -4,16 +4,15 @@
 
 body {
   background-color: #cecece6e;
+  overflow-x: hidden;
 }
 
 footer {
-  position: absolute;
-  bottom: 0;
   padding: 10px;
   background-color: #ffffff;
   width: 100%;
 }
-@media (min-width: 992px) {
+@media (min-width: 1024px) {
   footer {
     margin-left: 220px;
   }
@@ -21,6 +20,12 @@ footer {
 
 a {
   text-decoration: none !important;
+}
+
+.clearfix {
+  display: block;
+  content: "";
+  clear: both;
 }
 
 .topbar {
@@ -120,8 +125,9 @@ a {
   width: 220px;
   background: white;
   padding: 10px 10px;
-  top: -10px;
+  top: 0;
   box-shadow: 4px 5px 15px #ababab;
+  display: none;
 }
 .menu-sidebar li ul.list-child-hide {
   position: absolute;
@@ -129,11 +135,22 @@ a {
   z-index: 999;
   background: white;
   width: 220px;
-  top: -12px;
+  top: 130px;
   box-shadow: 4px 5px 15px #ababab;
 }
 .menu-sidebar li:hover, .menu-sidebar li.active {
   color: #000000;
+}
+
+.page-wrapper {
+  margin-bottom: 30px;
+  padding-top: 60px;
+  margin-left: 220px;
+}
+@media (min-width: 1024px) {
+  .page-wrapper {
+    min-width: 1020px;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */

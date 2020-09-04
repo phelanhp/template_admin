@@ -1,9 +1,9 @@
 $smaller: "(max-width: 360px)";
 $small-mobile: "(max-width: 413px)";
 $mobile: "(max-width: 739px)";
-$medium: "(min-width: 740px) and (max-width: 767px)";
-$tablet: "(min-width: 768px) and (max-width: 991px)";
-$desktop: "(min-width: 992px)";
+$medium: "(min-width: 740px)";
+$tablet: "(min-width: 768px)";
+$desktop: "(min-width: 1024px)";
 
 @mixin smaller() {
     @media #{$smaller}{
