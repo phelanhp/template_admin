@@ -14,16 +14,30 @@ class ServiceProvider extends BaseServiceProvider{
         foreach ($listModule as $module){
             $module_path = $path . '/' . $module;
             $namespace   = 'Modules\\' . $module;
+
             Route::group(
                 ['module' => $module, 'namespace' => $namespace . '\Http\Controllers'],
-                function () use ($module_path){
-                    $list_route = array_map('basename',
-                        File::files($module_path . '/Http/Routes'));
-                    dd($module_path . '/Http/Routes');
-                    foreach ($list_route as $route){
-                        if (file_exists($module_path . '/Http/Routes/routes.php')){
-                            require $module_path . '/Http/Routes/' . $route;
+                function () use ($module_path, $module){
+                    /** Route admin */
+                    $route_path_admin = $module_path . '/Http/Routes/admin.php';
+                    if ($module !== 'Auth'){
+                        Route::middleware(['admin'])
+                             ->prefix('admin')
+                             ->group(function () use ($route_path_admin){
+                                 if (file_exists($route_path_admin)){
+                                     require $route_path_admin;
+                                 }
+                             });
+                    }else{
+                        if (file_exists($route_path_admin)){
+                            require $route_path_admin;
                         }
+                    }
+
+                    /** Route web */
+                    $route_path_web = $module_path . '/Http/Routes/web.php';
+                    if (file_exists($route_path_web)){
+                        require $route_path_web;
                     }
                 }
             );
