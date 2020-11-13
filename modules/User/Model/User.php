@@ -4,6 +4,7 @@ namespace Modules\User\Model;
 
 use App\User as BaseUser;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Request;
 
 /**
  * Class User
@@ -14,6 +15,13 @@ class User extends BaseUser{
 
     use SoftDeletes;
     protected $dates = ['deleted_at'];
+
+    public function save(array $options = []){
+        $insert = Request::all();
+        parent::save($options);
+        $this->afterSave($insert);
+    }
+
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -35,17 +43,21 @@ class User extends BaseUser{
      *
      * @return mixed
      */
-    public function updateRoleUser($role_id){
-        $query = UserRole::where('user_id', $this->id);
-        if ($query->count() > 0){
-            UserRole::where('user_id', $this->id)->update(['role_id' => $role_id]);
-        }else{
-            $user_role          = new UserRole();
-            $user_role->user_id = $this->id;
-            $user_role->role_id = $role_id;
-            $user_role->save();
-        }
+    public function afterSave($insert){
 
+        $query = UserRole::where('user_id', $this->id);
+
+        if (isset($insert['role_id']) && $insert['role_id'] != $this->role->id){
+            if ($query->count() > 0){
+                UserRole::where('user_id', $this->id)->update(['role_id' => $insert['role_id']]);
+            }else{
+                $user_role          = new UserRole();
+                $user_role->user_id = $this->id;
+                $user_role->role_id = $insert['role_id'];
+                $user_role->save();
+            }
+        }
         return TRUE;
+
     }
 }

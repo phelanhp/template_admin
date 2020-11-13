@@ -34,10 +34,9 @@ class RoleController extends Controller{
     }
 
     public function postCreate(RoleValidation $request){
-        $session = new Request();
         $role    = new Role($request->all());
         if ($role->save()){
-            $session->session()->flash('success', 'Role created successfully.');
+            $request->session()->flash('success', 'Role updated successfully.');
         }
 
         return back();

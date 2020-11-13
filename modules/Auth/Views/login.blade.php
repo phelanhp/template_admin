@@ -19,11 +19,16 @@
                 <h4>Login</h4>
             </div>
             <div class="card-body">
+                @if (session('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <form action="" method="post">
                     @csrf
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" class="form-control">
+                        <input type="email" id="email" name="email" class="form-control" @if(session('email')) value="{{ session('email') }}" @endif>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>

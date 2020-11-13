@@ -17,6 +17,29 @@
                 <input type="email" id="email" class="form-control" name="email" value="{{ $user->email ?? old('email') }}">
             </div>
         </div>
+        @can('update-user-role')
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label for="role">Role</label>
+                </div>
+                <div class="col-md-8">
+                    {!! Form::select('role_id',$roles,$user->role->id ?? NULL,['id' => 'role', 'class' => 'select2 form-control', 'style' => 'width: 100%']) !!}
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label for="status">Status</label>
+                </div>
+                <div class="col-md-8">
+                    <select name="status" id="status" class="select2 form-control">
+                        <option value="">Select</option>
+                        @foreach($statuses as $key => $status)
+                            <option value="{{ $key }}" @if(isset($user) && $user->status === $key) selected @endif>{{ $status }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        @endcan
         <div class="form-group row">
             <div class="col-md-4">
                 <label for="password">Password</label>
@@ -33,18 +56,8 @@
                 <input type="password" id="password_re_enter" class="form-control" name="password_re_enter">
             </div>
         </div>
-        @if(isset($user) && \Auth::guard()->user()->role->id === \Modules\Role\Model\Role::getAdminRole()->id)
-        <div class="form-group row">
-            <div class="col-md-4">
-                <label for="role">Role</label>
-            </div>
-            <div class="col-md-8">
-                {!! Form::select('role_id',$roles,$user->role->id ?? NULL,['id' => 'role', 'class' => 'select2 form-control', 'style' => 'width: 100%']) !!}
-            </div>
-        </div>
-        @endif
         <div class="input-group mt-5">
-            <button type="submit" class="btn btn-primary mr-2">Save</button>
+            <button type="submit" id="save" class="btn btn-primary mr-2">Save</button>
             <button type="reset" class="btn btn-default">Reset</button>
         </div>
     </form>

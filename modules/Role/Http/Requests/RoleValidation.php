@@ -28,13 +28,13 @@ class RoleValidation extends FormRequest
         switch ($method) {
             default:
                 return [
-                    'name' => 'required|unique:roles,name',
+                    'name' => 'required|validate_unique:roles',
                     'status' => 'required',
                 ];
                 break;
             case 'update':
                 return [
-                    'name' => 'required|unique:roles,name,'.$this->id,
+                    'name' => 'required|unique:roles,'.$this->id,
                     'status' => 'required',
                 ];
                 break;

@@ -20,4 +20,9 @@ class DashboardController extends Controller{
     public function index(Request $request){
         return view('Dashboard::index');
     }
+
+    public function errorPage(){
+        $error = 'This action is unauthorized.';
+        return view('Dashboard::403', compact('error'));
+    }
 }

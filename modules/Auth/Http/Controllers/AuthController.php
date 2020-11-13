@@ -5,6 +5,7 @@ namespace Modules\Auth\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Modules\Base\Model\Status;
 
 
 class AuthController extends Controller{
@@ -41,10 +42,15 @@ class AuthController extends Controller{
             'email' => $request->input('email'),
             'password' => $request->input('password'),
         ];
+        $request->session()->put('email', $request->input('email'));
         if (Auth::guard()->attempt($login , $request->has('remember'))) {
-            return redirect()->route('dashboard');
+            if(Auth::user()->status == Status::STATUS_ACTIVE){
+                return redirect()->route('dashboard');
+            }
+            $request->session()->flash('error','Your account is inactive. Please contact with admin page to get more information.');
+            return $this->logout();
         }else{
-            $request->session()->flash('alert','Nhập sai Email hoặc Mật khẩu!');
+            $request->session()->flash('error','Incorrect username or password');
             return redirect()->back();
         }
     }
@@ -55,7 +61,10 @@ class AuthController extends Controller{
      * @return \Illuminate\Http\RedirectResponse
      */
     public function logout(){
-        Auth::logout();
+        if(Auth::check()){
+            session('email', Auth::user()->email);
+            Auth::logout();
+        }
         return redirect()->route('get.login.admin');
     }
 }

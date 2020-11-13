@@ -15,5 +15,9 @@ return [
             'name'         => 'user-delete',
             'display_name' => trans('Delete User'),
         ],
+        [
+            'name'         => 'update-user-role',
+            'display_name' => trans('Update user role'),
+        ],
     ]
 ];

@@ -24,11 +24,12 @@ class UserValidation extends FormRequest{
      */
     public function rules(){
         $method = Helper::segment(2);
-        if(Helper::segment(1) === 'profile'){
+        if (Helper::segment(1) === 'profile'){
             return [
                 'name'              => 'required',
-                'email'             => 'required|email|unique:users,email,' . Auth::guard()->id(),
-                'password'          => 'nullable|min:6|confirmed',
+                'email'             => 'required|email|validate_unique:users,' . Auth::guard()
+                                                                                     ->id(),
+                'password'          => 'min:6|nullable',
                 'password_re_enter' => 're_enter_password|required_with:password',
             ];
         }
@@ -37,7 +38,7 @@ class UserValidation extends FormRequest{
             default:
                 return [
                     'name'              => 'required',
-                    'email'             => 'required|email|unique:users,email',
+                    'email'             => 'required|email|validate_unique:users',
                     'password'          => 'required|min:6',
                     'password_re_enter' => 're_enter_password|required_with:password',
                 ];
@@ -45,7 +46,7 @@ class UserValidation extends FormRequest{
             case 'update':
                 return [
                     'name'              => 'required',
-                    'email'             => 'required|email|unique:users,email,' . $this->id,
+                    'email'             => 'required|email|validate_unique:users,' . $this->id,
                     'password'          => 'min:6|nullable',
                     'password_re_enter' => 're_enter_password|required_with:password',
                 ];
@@ -56,11 +57,11 @@ class UserValidation extends FormRequest{
     public function messages(){
         return [
             'required'          => ':attribute can not be null.',
-            'unique'            => ':attribute was exist.',
             'email'             => ':attribute must be the email.',
             'min'               => ':attribute too short',
             're_enter_password' => 'Wrong password',
-            'required_with'     => ':attribute can not be null.'
+            'required_with'     => ':attribute can not be null.',
+            'validate_unique'   => ':attribute was exist.'
         ];
     }
 
@@ -69,7 +70,8 @@ class UserValidation extends FormRequest{
             'name'              => 'Name',
             'email'             => 'Email',
             'password'          => 'Password',
-            'password_re_enter' => 'Re-enter Password'
+            'password_re_enter' => 'Re-enter Password',
+            'status'            => 'Status'
         ];
     }
 }

@@ -3,11 +3,12 @@
 namespace Modules\User\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Auth;
+use Illuminate\Http\Request;
+use Modules\Base\Model\Status;
 use Modules\Role\Model\Role;
 use Modules\User\Http\Requests\UserValidation;
 use Modules\User\Model\User;
-use Modules\User\Model\UserRole;
-use Illuminate\Http\Request;
 
 class UserController extends Controller{
 
@@ -25,17 +26,19 @@ class UserController extends Controller{
      */
     public function index(){
         $users = User::paginate(20);
+        $statuses = Status::STATUSES;
 
-
-        return view('User::index', compact('users'));
+        return view('User::index', compact('users','statuses'));
     }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getCreate(){
-        $roles = Role::getArray();
-        return view('User::create', compact('roles'));
+        $roles    = Role::getArray();
+        $statuses = Status::STATUSES;
+
+        return view('User::create', compact('roles', 'statuses'));
     }
 
     /**
@@ -44,19 +47,18 @@ class UserController extends Controller{
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postCreate(UserValidation $request){
-        if(!empty($request->all()) && $request->password === $request->password_re_enter){
+        if (!empty($request->all()) && $request->password === $request->password_re_enter){
             $data = $request->all();
             unset($data['password_re_enter']);
             unset($data['role_id']);
             $user = new User($data);
-            if($user->save()){
-                $this->updateRoleUser($request->role_id);
-
-                $request->session()->flash('success','User created successfully.');
+            if ($user->save()){
+                $request->session()->flash('success', 'User created successfully.');
             }
-            $request->session()->flash('danger','User can not create.');
+            $request->session()->flash('danger', 'User can not create.');
         }
-        return back();
+
+        return redirect()->route('get.user.list');
     }
 
     /**
@@ -65,9 +67,11 @@ class UserController extends Controller{
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getUpdate($id){
-        $roles = Role::getArray();
-        $user = User::find($id);
-        return view('User::update', compact('roles','user'));
+        $roles    = Role::getArray();
+        $user     = User::find($id);
+        $statuses = Status::STATUSES;
+
+        return view('User::update', compact('roles', 'user', 'statuses'));
     }
 
     /**
@@ -78,27 +82,49 @@ class UserController extends Controller{
      */
     public function postUpdate(UserValidation $request, $id){
         $data = $request->all();
+        if(empty($data['password'])){
+            unset($data['password']);
+        }
         unset($data['password_re_enter']);
         $user = User::find($id);
-        if($user->update($request->all())){
-            if(isset($request->role_id)){
-                $user->updateRoleUser($request->role_id);
-            }
-            $request->session()->flash('success','User created successfully.');
+        try{
+            $user->update($data);
+            $request->session()->flash('success', 'User updated successfully.');
+        }catch (\Exception $e){
+            $request->session()->flash('danger', 'User cannot update.');
         }
 
         return redirect()->route('get.user.list');
 
     }
 
+    public function postUpdateStatus(Request $request){
+        $data = $request->all();
+        if($data != null){
+            $user = User::find($data['id']);
+            if($user){
+                $user->status = $data['status'];
+                try{
+                    $user->save();
+                    $request->session()->flash('success', 'User updated successfully.');
+                }catch (\Exception $e){
+                    $request->session()->flash('danger', 'User cannot update.');
+                }
+            }
+        }
+        return TRUE;
+    }
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getProfile(){
-        $id = \Auth::guard()->id();
+        $id    = Auth::guard()->id();
         $roles = Role::getArray();
-        $user = User::find($id);
-        return view('User::update', compact('roles','user'));
+        $user  = User::find($id);
+        $statuses = Status::STATUSES;
+
+        return view('User::update', compact('roles', 'user', 'statuses'));
     }
 
     /**
@@ -107,16 +133,16 @@ class UserController extends Controller{
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postProfile(UserValidation $request){
-        $id = \Auth::guard()->id();
+        $id   = Auth::guard()->id();
         $data = $request->all();
-        if(empty($data['password'])){
+        if (empty($data['password'])){
             unset($data['password']);
         }
         $user = User::find($id);
         $user->update($data);
-        $request->session()->flash('success','User created successfully.');
+        $request->session()->flash('success', 'User updated successfully.');
 
-        return redirect()->route('get.user.list');
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -128,7 +154,8 @@ class UserController extends Controller{
     public function delete(Request $request, $id){
         $user = User::find($id);
         $user->delete();
-        $request->session()->flash('success','User deleted successfully.');
+        $request->session()->flash('success', 'User deleted successfully.');
+
         return back();
     }
 }

@@ -20,7 +20,7 @@ use Modules\Permission\Model\PermissionRole;
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table table-striped">
                                 <thead>
                                 <tr>
                                     <th width="50px">#</th>
@@ -56,7 +56,7 @@ use Modules\Permission\Model\PermissionRole;
                                                             <input type="checkbox" name='role_permission[{{$role->id}}][]' value="{{ $child->id }}"
                                                                    @if(\Modules\Permission\Model\PermissionRole::checkRolePermission($child->id, $role->id)) checked @endif
                                                                    @if(\Modules\Role\Model\Role::getAdminRole()->id === $role->id) disabled @endif
-                                                                   class="checkbox-style checkbox-item role-{{ $permission->id }}-{{ $role->id }}">
+                                                                   class="checkbox-style checkbox-item role-{{ $permission->id }}-{{ $role->id }}" id="role-{{ $child->id }}-{{ $role->id }}">
                                                         </td>
                                                     @endforeach
                                                 </tr>

@@ -292,7 +292,7 @@ use Illuminate\Support\Facades\Route;
                         </span>
                 </div>
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                         <tr>
                             <th width="50px">#</th>

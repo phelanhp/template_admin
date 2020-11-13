@@ -1,6 +1,6 @@
 // Should work for most cases
 function uniqueId() {
-    return Math.round(new Date().getTime() + (Math.random() * 100)) + 250;
+    return Math.round(new Date().getTime()+ 1000 + (Math.random() * 100)) + 250;
 }
 
 function slideAlert(selector) {
