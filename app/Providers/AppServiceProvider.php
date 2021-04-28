@@ -7,14 +7,16 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider{
+class AppServiceProvider extends ServiceProvider
+{
 
     /**
      * Register any application services.
      *
      * @return void
      */
-    public function register(){
+    public function register()
+    {
         //
     }
 
@@ -23,47 +25,72 @@ class AppServiceProvider extends ServiceProvider{
      *
      * @return void
      */
-    public function boot(){
+    public function boot()
+    {
         Schema::defaultStringLength(191);
 
-        //Validation Re-enter Password
+        /**
+         * Validation Re-enter Password
+         */
         Validator::extend('re_enter_password',
-            function ($attribute, $value, $parameters, $validator){
+            function ($attribute, $value, $parameters, $validator) {
                 $data = $validator->getData();
-                if (empty($data['password']) || $value === $data['password']){
+                if (empty($data['password']) || $value === $data['password']) {
                     return TRUE;
                 }
 
                 return FALSE;
             });
 
-        //Validare Unique Custom
-        Validator::extend('validate_unique', function ($attribute, $value, $parameters, $validator){
-            if (!empty($parameters)){
+        /**
+         * Validate Unique Custom
+         */
+        Validator::extend('validate_unique', function ($attribute, $value, $parameters, $validator) {
+            if (!empty($parameters)) {
                 $table = reset($parameters);
-                $id    = array_pop($parameters);
+                $id = (int)array_pop($parameters);
 
-                if ($id !== $table && is_numeric($id)){
+                if ($id !== $table && is_numeric($id)) {
                     $result = DB::select(DB::raw("SHOW KEYS FROM {$table} WHERE Key_name = 'PRIMARY'"));
                     $primary_key = $result[0]->Column_name;
                     $query = DB::table($table)
-                               ->where($attribute, $value)
-                               ->where($primary_key, '<>', $id)
-                               ->where('deleted_at', NULL)
-                               ->exists();
-                }else{
+                        ->where($attribute, $value)
+                        ->where($primary_key, '<>', $id)
+                        ->where('deleted_at', NULL)
+                        ->exists();
+                } else {
                     $query = DB::table($table)
-                               ->where($attribute, $value)
-                               ->where('deleted_at', NULL)
-                               ->exists();
+                        ->where($attribute, $value)
+                        ->where('deleted_at', NULL)
+                        ->exists();
                 }
 
-                if (!$query){
+                if (!$query) {
                     return TRUE;
                 }
             }
 
             return FALSE;
         });
+
+        /**
+         * Check exist Injection
+         */
+        Validator::extend('check_exist',
+            function ($attribute, $value, $parameters, $validator) {
+                $table = reset($parameters);
+                $check_attribute = array_pop($parameters);
+                $query = DB::table($table)
+                    ->where($check_attribute, $value)
+                    ->where('deleted_at', NULL)
+                    ->exists();
+
+                if ($query) {
+                    return TRUE;
+                }
+
+                return FALSE;
+            }
+        );
     }
 }

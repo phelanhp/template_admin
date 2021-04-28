@@ -4,55 +4,65 @@ namespace Modules\User\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Auth;
+use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Modules\Base\Model\Status;
 use Modules\Role\Model\Role;
 use Modules\User\Http\Requests\UserValidation;
 use Modules\User\Model\User;
 
-class UserController extends Controller{
+class UserController extends Controller
+{
 
     /**
      * Create a new authentication controller instance.
      *
      * @return void
      */
-    public function __construct(){
+    public function __construct()
+    {
         # parent::__construct();
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
-    public function index(){
-        $users = User::paginate(20);
+    public function index(Request $request)
+    {
+        $filter = $request->all();
+        $users = User::filter($filter)->paginate(20);
         $statuses = Status::STATUSES;
 
-        return view('User::index', compact('users','statuses'));
+        return view('User::index', compact('users', 'statuses', 'filter'));
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
-    public function getCreate(){
-        $roles    = Role::getArray();
+    public function getCreate()
+    {
+        $roles = Role::getArray();
         $statuses = Status::STATUSES;
 
         return view('User::create', compact('roles', 'statuses'));
     }
 
     /**
-     * @param \Modules\User\Http\Requests\UserValidation $request
+     * @param UserValidation $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function postCreate(UserValidation $request){
-        if (!empty($request->all()) && $request->password === $request->password_re_enter){
+    public function postCreate(UserValidation $request)
+    {
+        if (!empty($request->all()) && $request->password === $request->password_re_enter) {
             $data = $request->all();
             unset($data['password_re_enter']);
             unset($data['role_id']);
             $user = new User($data);
-            if ($user->save()){
+            if ($user->save()) {
                 $request->session()->flash('success', 'User created successfully.');
             }
             $request->session()->flash('danger', 'User can not create.');
@@ -64,33 +74,35 @@ class UserController extends Controller{
     /**
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
-    public function getUpdate($id){
-        $roles    = Role::getArray();
-        $user     = User::find($id);
+    public function getUpdate($id)
+    {
+        $roles = Role::getArray();
+        $user = User::find($id);
         $statuses = Status::STATUSES;
 
         return view('User::update', compact('roles', 'user', 'statuses'));
     }
 
     /**
-     * @param \Modules\User\Http\Requests\UserValidation $request
+     * @param UserValidation $request
      * @param $id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function postUpdate(UserValidation $request, $id){
+    public function postUpdate(UserValidation $request, $id)
+    {
         $data = $request->all();
-        if(empty($data['password'])){
+        if (empty($data['password'])) {
             unset($data['password']);
         }
         unset($data['password_re_enter']);
         $user = User::find($id);
-        try{
+        try {
             $user->update($data);
             $request->session()->flash('success', 'User updated successfully.');
-        }catch (\Exception $e){
+        } catch (Exception $e) {
             $request->session()->flash('danger', 'User cannot update.');
         }
 
@@ -98,16 +110,17 @@ class UserController extends Controller{
 
     }
 
-    public function postUpdateStatus(Request $request){
+    public function postUpdateStatus(Request $request)
+    {
         $data = $request->all();
-        if($data != null){
+        if ($data != null) {
             $user = User::find($data['id']);
-            if($user){
+            if ($user) {
                 $user->status = $data['status'];
-                try{
+                try {
                     $user->save();
                     $request->session()->flash('success', 'User updated successfully.');
-                }catch (\Exception $e){
+                } catch (Exception $e) {
                     $request->session()->flash('danger', 'User cannot update.');
                 }
             }
@@ -116,26 +129,28 @@ class UserController extends Controller{
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
-    public function getProfile(){
-        $id    = Auth::guard()->id();
+    public function getProfile()
+    {
+        $id = Auth::guard()->id();
         $roles = Role::getArray();
-        $user  = User::find($id);
+        $user = User::find($id);
         $statuses = Status::STATUSES;
 
         return view('User::update', compact('roles', 'user', 'statuses'));
     }
 
     /**
-     * @param \Modules\User\Http\Requests\UserValidation $request
+     * @param UserValidation $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function postProfile(UserValidation $request){
-        $id   = Auth::guard()->id();
+    public function postProfile(UserValidation $request)
+    {
+        $id = Auth::guard()->id();
         $data = $request->all();
-        if (empty($data['password'])){
+        if (empty($data['password'])) {
             unset($data['password']);
         }
         $user = User::find($id);
@@ -146,12 +161,13 @@ class UserController extends Controller{
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param $id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function delete(Request $request, $id){
+    public function delete(Request $request, $id)
+    {
         $user = User::find($id);
         $user->delete();
         $request->session()->flash('success', 'User deleted successfully.');

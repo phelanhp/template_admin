@@ -8,7 +8,7 @@ Route::prefix('user')->group(function (){
         Route::get('/create', 'UserController@getCreate')->name('get.user.create');
         Route::post('/create', 'UserController@postCreate')->name('post.user.create');
     });
-    Route::group(['middleware' => 'can:user-create'], function (){
+    Route::group(['middleware' => 'can:user-update'], function (){
         Route::get('/update/{id}', 'UserController@getUpdate')->name('get.user.update');
         Route::post('/update/{id}', 'UserController@postUpdate')->name('post.user.update');
         Route::post('/update-status', 'UserController@postUpdateStatus')->name('post.user.update_status');

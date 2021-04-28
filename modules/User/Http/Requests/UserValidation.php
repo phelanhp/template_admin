@@ -6,14 +6,16 @@ use App\AppHelpers\Helper;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class UserValidation extends FormRequest{
+class UserValidation extends FormRequest
+{
 
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize(){
+    public function authorize()
+    {
         return TRUE;
     }
 
@@ -22,56 +24,61 @@ class UserValidation extends FormRequest{
      *
      * @return array
      */
-    public function rules(){
+    public function rules()
+    {
         $method = Helper::segment(2);
-        if (Helper::segment(1) === 'profile'){
+        if (Helper::segment(1) === 'profile') {
             return [
                 'name'              => 'required',
                 'email'             => 'required|email|validate_unique:users,' . Auth::guard()
-                                                                                     ->id(),
+                        ->id(),
                 'password'          => 'min:6|nullable',
                 'password_re_enter' => 're_enter_password|required_with:password',
             ];
         }
 
-        switch ($method){
+        switch ($method) {
             default:
                 return [
                     'name'              => 'required',
                     'email'             => 'required|email|validate_unique:users',
+                    'role_id'           => 'check_exist:roles,id',
                     'password'          => 'required|min:6',
                     'password_re_enter' => 're_enter_password|required_with:password',
                 ];
-                break;
             case 'update':
                 return [
                     'name'              => 'required',
                     'email'             => 'required|email|validate_unique:users,' . $this->id,
+                    'role_id'           => 'check_exist:roles,id',
                     'password'          => 'min:6|nullable',
                     'password_re_enter' => 're_enter_password|required_with:password',
                 ];
-                break;
         }
     }
 
-    public function messages(){
+    public function messages()
+    {
         return [
             'required'          => ':attribute can not be null.',
             'email'             => ':attribute must be the email.',
             'min'               => ':attribute too short',
             're_enter_password' => 'Wrong password',
             'required_with'     => ':attribute can not be null.',
-            'validate_unique'   => ':attribute was exist.'
+            'validate_unique'   => ':attribute was exist.',
+            'check_exist'       => ':attribute does not exist.'
         ];
     }
 
-    public function attributes(){
+    public function attributes()
+    {
         return [
             'name'              => 'Name',
             'email'             => 'Email',
             'password'          => 'Password',
             'password_re_enter' => 'Re-enter Password',
-            'status'            => 'Status'
+            'status'            => 'Status',
+            'role_id'           => 'Role'
         ];
     }
 }

@@ -27,7 +27,7 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="text-input">Role name</label>
+                                    <label for="text-input">User name</label>
                                     <input type="text" class="form-control" id="text-input" name="name" value="{{$filter['name'] ?? NULL}}">
                                 </div>
                             </div>
