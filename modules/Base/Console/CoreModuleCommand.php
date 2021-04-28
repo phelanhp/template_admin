@@ -93,7 +93,7 @@ return [
         mkdir(base_path("modules/{$module}/Model"), 0777, TRUE);
         $content = '<?php
 
-namespace Modules\\'.$module.'\\Entities;
+namespace Modules\\'.$module.'\\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -159,7 +159,7 @@ class '.$module.'Controller extends Controller{
         /************************************************************************************/
 
       //Validation
-        mkdir(base_path("modules/{$module}/Http/Request"), 0777, TRUE);
+        mkdir(base_path("modules/{$module}/Http/Requests"), 0777, TRUE);
         $content = '<?php
 
 namespace Modules\\'.$module.'\Http\Requests;
@@ -209,7 +209,7 @@ class '.$module.'Request extends FormRequest
 }
 ';
 
-        $fp      = fopen(base_path("modules/{$module}/Http/Request/{$module}Request.php"), "wb");
+        $fp      = fopen(base_path("modules/{$module}/Http/Requests/{$module}Request.php"), "wb");
         fwrite($fp, $content);
         fclose($fp);
 

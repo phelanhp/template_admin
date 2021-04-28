@@ -47,11 +47,13 @@ class Helper{
     public static function config_permission_merge(){
         $modules     = self::get_directories(base_path('modules'));
         $files = [];
+        $i = 0;
         foreach ($modules as $key => $value){
             $urlPath = $value . '/Config/permission.php';
             $file = base_path('modules') . '/' . $urlPath;
             if (file_exists($file)){
-                $files[filemtime($file)] = $file;
+                $files[(int)filemtime($file) + $i] = $file;
+                $i++;
             }
         }
         ksort($files);

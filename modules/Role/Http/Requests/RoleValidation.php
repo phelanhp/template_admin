@@ -34,7 +34,7 @@ class RoleValidation extends FormRequest
                 break;
             case 'update':
                 return [
-                    'name' => 'required|unique:roles,'.$this->id,
+                    'name' => 'required|validate_unique:roles,'.$this->id,
                     'status' => 'required',
                 ];
                 break;
@@ -45,7 +45,7 @@ class RoleValidation extends FormRequest
     {
         return [
             'required' => ':attribute can not be null.',
-            'unique' => ':attribute was exist.'
+            'validate_unique' => ':attribute was exist.'
         ];
     }
 
