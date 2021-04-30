@@ -38,9 +38,9 @@
         @yield('content')
     </div>
 </div>
-@if (session('error'))
+@if (session('error') || session('danger'))
     <div class="alert alert-danger alert-fade-out" style="display: none" role="alert">
-        {{ session('error') }}
+        {{ session('error') ?? session('danger') }}
     </div>
 @endif
 @if (session('success'))
@@ -62,6 +62,9 @@
 <script>
     $(document).ready(function () {
         $('.select2').select2();
+        if($('.alert-primary').html() !== undefined){
+            $('.alert-danger').css('top','120px');
+        }
         slideAlert($('.alert-fade-out'));
     });
 </script>

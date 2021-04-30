@@ -425,4 +425,15 @@ input[type=file] {
   width: 350px;
 }
 
+.btn-setting {
+  padding: 10px 20px;
+  width: 100%;
+  text-align: left;
+  border: #0c5460 solid 2px;
+}
+.btn-setting span {
+  font-weight: bold;
+  color: darkblue;
+}
+
 /*# sourceMappingURL=main.css.map */

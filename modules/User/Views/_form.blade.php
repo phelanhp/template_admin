@@ -14,7 +14,11 @@
                 <label for="email">Email</label>
             </div>
             <div class="col-md-8">
-                <input type="email" id="email" class="form-control" name="email" value="{{ $user->email ?? old('email') }}">
+                <input type="email" id="email" class="form-control" name="email"
+                       @if(\Illuminate\Support\Facades\Auth::user()->role->name !== \Modules\Role\Model\Role::ADMINISTRATOR)
+                           readonly=""
+                       @endif
+                       value="{{ $user->email ?? old('email') }}">
             </div>
         </div>
         @can('update-user-role')
@@ -32,9 +36,9 @@
                 </div>
                 <div class="col-md-8">
                     <select name="status" id="status" class="select2 form-control">
-                        <option value="">Select</option>
                         @foreach($statuses as $key => $status)
-                            <option value="{{ $key }}" @if(isset($user) && $user->status === $key) selected @endif>{{ $status }}</option>
+                            <option value="{{ $key }}"
+                                    @if(isset($user) && $user->status === $key) selected @endif>{{ $status }}</option>
                         @endforeach
                     </select>
                 </div>

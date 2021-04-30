@@ -492,3 +492,15 @@ input[type='file']{
     margin-top: 150px;
     width: 350px;
 }
+
+.btn-setting{
+    padding: 10px 20px;
+    width: 100%;
+    text-align: left;
+    border: #0c5460 solid 2px;
+
+    span{
+        font-weight: bold;
+        color: darkblue;
+    }
+}

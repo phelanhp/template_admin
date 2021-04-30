@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="{{ asset('assets/fontawesome/css/all.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
@@ -12,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('assets/backend/css/main.css') }}">
     <title>Login Page</title>
 </head>
-<body style="background-image: url('/logo/bg-login.jpg'); background-size: cover; background-repeat: no-repeat">
+<body  style="background-image: url('/logo/bg-login.jpg'); background-size: cover; background-repeat: no-repeat">
 <div class="content container" id="login">
     <div class="d-flex justify-content-center login-box">
         <div class="card">
@@ -25,31 +24,22 @@
                         {{ session('error') }}
                     </div>
                 @endif
-                @if (session('success'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('success') }}
-                    </div>
-                @endif
                 <form action="" method="post">
                     @csrf
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" class="form-control"
-                               @if(session('email')) value="{{ session('email') }}" @endif>
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" class="form-control" @if(session('email')) value="{{ session('email') }}" @endif>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password</label>
+                        <label for="email">New Password</label>
                         <input type="password" id="password" name="password" class="form-control">
                     </div>
-                    <div class="form-group checkbox">
-                        <input type="checkbox" class="checkbox-style" name="remember" checked>
-                        <span class="checkbox-option pl-2"> Remember me?</span>
+                    <div class="form-group">
+                        <label for="email">Re-enter Password</label>
+                        <input type="password" id="re_enter_password" name="re_enter_password" class="form-control">
                     </div>
                     <div class="btn-group d-flex justify-content-center">
                         <button type="submit" class="btn btn-primary w-100">Login</button>
-                    </div>
-                    <div class="p-2">
-                        <a href="{{ route('get.logout.forgot_password') }}" class="text-info">Forget Password?</a>
                     </div>
                 </form>
             </div>

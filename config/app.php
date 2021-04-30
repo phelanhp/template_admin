@@ -178,6 +178,7 @@ return [
          * Custom Service Providers...
          */
         App\Providers\ServiceProvider::class,
+        App\Providers\MailConfigServiceProvider::class,
     ],
 
     /*

@@ -32,8 +32,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $filter = $request->all();
-        $users = User::filter($filter)->paginate(20);
+        $filter   = $request->all();
+        $users    = User::filter($filter)->paginate(20);
         $statuses = Status::STATUSES;
 
         return view('User::index', compact('users', 'statuses', 'filter'));
@@ -44,7 +44,7 @@ class UserController extends Controller
      */
     public function getCreate()
     {
-        $roles = Role::getArray();
+        $roles    = Role::getArray();
         $statuses = Status::STATUSES;
 
         return view('User::create', compact('roles', 'statuses'));
@@ -57,12 +57,12 @@ class UserController extends Controller
      */
     public function postCreate(UserValidation $request)
     {
-        if (!empty($request->all()) && $request->password === $request->password_re_enter) {
+        if(!empty($request->all()) && $request->password === $request->password_re_enter){
             $data = $request->all();
             unset($data['password_re_enter']);
             unset($data['role_id']);
             $user = new User($data);
-            if ($user->save()) {
+            if($user->save()){
                 $request->session()->flash('success', 'User created successfully.');
             }
             $request->session()->flash('danger', 'User can not create.');
@@ -78,8 +78,8 @@ class UserController extends Controller
      */
     public function getUpdate($id)
     {
-        $roles = Role::getArray();
-        $user = User::find($id);
+        $roles    = Role::getArray();
+        $user     = User::find($id);
         $statuses = Status::STATUSES;
 
         return view('User::update', compact('roles', 'user', 'statuses'));
@@ -94,33 +94,28 @@ class UserController extends Controller
     public function postUpdate(UserValidation $request, $id)
     {
         $data = $request->all();
-        if (empty($data['password'])) {
+        $user = User::find($id);
+        if(empty($data['password'])){
             unset($data['password']);
         }
         unset($data['password_re_enter']);
-        $user = User::find($id);
-        try {
-            $user->update($data);
-            $request->session()->flash('success', 'User updated successfully.');
-        } catch (Exception $e) {
-            $request->session()->flash('danger', 'User cannot update.');
-        }
+        $user->update($data);
+        $request->session()->flash('success', 'User updated successfully.');
 
         return redirect()->route('get.user.list');
-
     }
 
     public function postUpdateStatus(Request $request)
     {
         $data = $request->all();
-        if ($data != null) {
+        if($data != NULL){
             $user = User::find($data['id']);
-            if ($user) {
+            if($user){
                 $user->status = $data['status'];
-                try {
+                try{
                     $user->save();
                     $request->session()->flash('success', 'User updated successfully.');
-                } catch (Exception $e) {
+                }catch(Exception $e){
                     $request->session()->flash('danger', 'User cannot update.');
                 }
             }
@@ -133,9 +128,9 @@ class UserController extends Controller
      */
     public function getProfile()
     {
-        $id = Auth::guard()->id();
-        $roles = Role::getArray();
-        $user = User::find($id);
+        $id       = Auth::guard()->id();
+        $roles    = Role::getArray();
+        $user     = User::find($id);
         $statuses = Status::STATUSES;
 
         return view('User::update', compact('roles', 'user', 'statuses'));
@@ -148,12 +143,13 @@ class UserController extends Controller
      */
     public function postProfile(UserValidation $request)
     {
-        $id = Auth::guard()->id();
+        $id   = Auth::guard()->id();
         $data = $request->all();
-        if (empty($data['password'])) {
+        $user = User::find($id);
+        if(empty($data['password'])){
             unset($data['password']);
         }
-        $user = User::find($id);
+        unset($data['password_re_enter']);
         $user->update($data);
         $request->session()->flash('success', 'User updated successfully.');
 
@@ -174,4 +170,5 @@ class UserController extends Controller
 
         return back();
     }
+
 }
