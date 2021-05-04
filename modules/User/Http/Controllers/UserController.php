@@ -62,10 +62,8 @@ class UserController extends Controller
             unset($data['password_re_enter']);
             unset($data['role_id']);
             $user = new User($data);
-            if($user->save()){
-                $request->session()->flash('success', 'User created successfully.');
-            }
-            $request->session()->flash('danger', 'User can not create.');
+            $user->save();
+            $request->session()->flash('success', 'User created successfully.');
         }
 
         return redirect()->route('get.user.list');

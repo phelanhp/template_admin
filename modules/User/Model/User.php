@@ -59,7 +59,7 @@ class User extends BaseUser
         if(isset($insert['role_id'])){
             $role_id = (int)$insert['role_id'];
             if(!empty($role_id)){
-                if(isset($this->role->id)){
+                if(!empty($this->getRoleAttribute())){
                     UserRole::where('user_id', (int)$this->id)->update(['role_id' => $role_id]);
                 }else{
                     $user_role          = new UserRole();
@@ -111,10 +111,10 @@ class User extends BaseUser
 
     /**
      * @return mixed belongsTo Role
-     * Use like this: $this->role
+     * Use like this: $this->getRoleAttribute()
      */
     public function getRoleAttribute()
     {
-        return $this->roles->first()->role;
+        return $this->roles->first()->role ?? NULL;
     }
 }
