@@ -3,7 +3,7 @@
 use Modules\Base\Model\Status;
 
 return [
-    'name'       => 'Users',
+    'name'       => trans('User::language.name'),
     'route'      => route('get.user.list'),
     'sort'       => 97,
     'active'     => TRUE,

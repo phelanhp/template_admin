@@ -18,7 +18,7 @@ class SendMail extends Mailable
      * @param string $body
      * @return $this
      */
-    public function body(string $body): SendMailer
+    public function body(string $body): SendMail
     {
         $this->body = $body;
 
@@ -29,7 +29,7 @@ class SendMail extends Mailable
      * @param string $title
      * @return $this
      */
-    public function title(string $title): SendMailer
+    public function title(string $title): SendMail
     {
         $this->title = $title;
 

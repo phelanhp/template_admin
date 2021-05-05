@@ -3,7 +3,7 @@
 use Modules\Base\Model\Status;
 
 return [
-    'name'       => 'Roles',
+    'name'       => trans('Role::language.module'),
     'route'      => route('get.role.list'),
     'sort'       => 98,
     'active'     => TRUE,

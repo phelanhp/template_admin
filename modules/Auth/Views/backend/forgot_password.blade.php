@@ -39,7 +39,7 @@
                         <input type="password" id="re_enter_password" name="re_enter_password" class="form-control">
                     </div>
                     <div class="btn-group d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                        <button type="submit" class="btn btn-primary w-100">Confirm</button>
                     </div>
                 </form>
             </div>

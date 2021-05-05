@@ -5,36 +5,36 @@
         <div class="breadcrumb-line">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Roles</a></li>
+                    <li class="breadcrumb-item"><a href="#">@lang('Role::language.home')</a></li>
+                    <li class="breadcrumb-item"><a href="#">@lang('Role::language.name_page')</a></li>
                 </ol>
             </nav>
         </div>
         <div id="head-page" class="d-flex justify-content-between">
-            <div class="page-title"><h3>Roles Listing</h3></div>
+            <div class="page-title"><h3>@lang('Role::language.name_page')</h3></div>
             <div class="group-btn">
-                <a href="{{ route('get.role.create') }}" class="btn btn-primary" data-toggle="modal" data-target="#form-modal"><i class="fa fa-plus"></i> &nbsp; Add New</a>
+                <a href="{{ route('get.role.create') }}" class="btn btn-primary" data-toggle="modal" data-target="#form-modal"><i class="fa fa-plus"></i> &nbsp; @lang('Role::language.create')</a>
             </div>
         </div>
         <!--Search box-->
         <div class="search-box">
             <div class="card">
                 <div class="card-header" data-toggle="collapse" data-target="#form-search-box" aria-expanded="false" aria-controls="form-search-box">
-                    <div class="title">Search</div>
+                    <div class="title">@lang('Role::language.search')</div>
                 </div>
                 <div class="card-body collapse show" id="form-search-box">
                     <form action="" method="get">
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="text-input">Role name</label>
+                                    <label for="text-input">@lang('Role::language.name')</label>
                                     <input type="text" class="form-control" id="text-input" name="name" value="{{$filter['name'] ?? NULL}}">
                                 </div>
                             </div>
                         </div>
                         <div class="input-group">
-                            <button type="submit" class="btn btn-primary mr-2">Search</button>
-                            <button type="button" class="btn btn-default clear">Cancel</button>
+                            <button type="submit" class="btn btn-primary mr-2">@lang('Role::language.search')</button>
+                            <button type="button" class="btn btn-default clear">@lang('Role::language.cancel')</button>
                         </div>
                     </form>
                 </div>
@@ -45,8 +45,8 @@
                 <div class="card-body">
                     <div class="sumary">
                         <span class="listing-information">
-                            Showing <b>{{($roles->currentpage()-1)*$roles->perpage()+1}} to {{($roles->currentpage()-1) * $roles->perpage() + $roles->count()}}</b>
-                            of  <b>{{$roles->total()}}</b> entries
+                            @lang('Role::language.showing') <b>{{($roles->currentpage()-1)*$roles->perpage()+1}} @lang('Role::language.to') {{($roles->currentpage()-1) * $roles->perpage() + $roles->count()}}</b>
+                            @lang('Role::language.of')  <b>{{$roles->total()}}</b> @lang('Role::language.entries')
                         </span>
                     </div>
                     <div class="table-responsive">
@@ -57,11 +57,11 @@
                                     <input type="checkbox" class="checkbox-style select-all">
                                 </th>
                                 <th width="50px">#</th>
-                                <th>Name</th>
-                                <th>Status</th>
-                                <th width="200px">Created At</th>
-                                <th width="200px">Updated At</th>
-                                <th width="200px" class="action">Action</th>
+                                <th>@lang('Role::language.name')</th>
+                                <th>@lang('Role::language.status')</th>
+                                <th width="200px">@lang('Role::language.created_at')</th>
+                                <th width="200px">@lang('Role::language.updated_at')</th>
+                                <th width="200px" class="action">@lang('Role::language.action')</th>
                             </tr>
                             </thead>
                             <tbody>

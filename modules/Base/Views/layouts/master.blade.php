@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="{{ asset('assets/fontawesome/css/all.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
@@ -12,6 +13,7 @@
     <title>Document</title>
 </head>
 <body>
+
 <!-- Header -->
 <header class="topbar d-flex justify-content-between">
     <!-- Logo -->
@@ -22,12 +24,20 @@
         </button>
     </div>
     <!-- Right-Sidebar -->
-    <div class="right-sidebar float-right" data-toggle="collapse" href="#list-menu" aria-expanded="false">
-        <a href="#" class="text-light">{{ \Illuminate\Support\Facades\Auth::user()->name ?? null }}</a>
-        <ul class="collapse list-unstyled border menu-sidebar" id="list-menu">
-            <li><a href="{{ route('get.profile.update') }}"> Profile</a></li>
-            <li><a href="{{ route('get.logout.admin') }}"> Đăng xuất</a></li>
-        </ul>
+    <div class="d-flex align-items-center">
+        <div class="mr-2" style="width: 160px;">
+            <select class="select2 form-control" id="change-language" name="dropdown">
+                <option value="en" @if(session()->get('locale') === 'en') selected @endif>English (US)</option>
+                <option value="cn" @if(session()->get('locale') === 'cn') selected @endif>Chinese (Traditional)</option>
+            </select>
+        </div>
+        <div class="right-sidebar float-right" data-toggle="collapse" href="#list-menu" aria-expanded="false">
+            <a href="#" class="text-light">{{ \Illuminate\Support\Facades\Auth::user()->name ?? null }}</a>
+            <ul class="collapse list-unstyled border menu-sidebar" id="list-menu">
+                <li><a href="{{ route('get.profile.update') }}"> Profile</a></li>
+                <li><a href="{{ route('get.logout.admin') }}"> Đăng xuất</a></li>
+            </ul>
+        </div>
     </div>
 </header>
 <!-- Left Sidebar -->
@@ -59,11 +69,12 @@
 <script src="{{ asset('assets/backend/jquery/main.js') }}"></script>
 <script src="{{ asset('assets/backend/jquery/modal.js') }}"></script>
 <script src="{{ asset('assets/backend/jquery/menu.js') }}"></script>
+<script src="{{ asset('assets/backend/jquery/custom.js') }}"></script>
 <script>
     $(document).ready(function () {
         $('.select2').select2();
-        if($('.alert-primary').html() !== undefined){
-            $('.alert-danger').css('top','120px');
+        if ($('.alert-primary').html() !== undefined) {
+            $('.alert-danger').css('top', '120px');
         }
         slideAlert($('.alert-fade-out'));
     });

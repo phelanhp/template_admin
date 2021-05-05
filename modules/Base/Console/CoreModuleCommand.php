@@ -5,7 +5,8 @@ namespace Modules\Base\Console;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 
-class CoreModuleCommand extends Command{
+class CoreModuleCommand extends Command
+{
 
     /**
      * The name and signature of the console command.
@@ -26,7 +27,8 @@ class CoreModuleCommand extends Command{
      *
      * @return void
      */
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -35,12 +37,14 @@ class CoreModuleCommand extends Command{
      *
      * @return mixed
      */
-    public function handle(){
+    public function handle()
+    {
         $module = ucfirst($this->argument('name'));
 
-        if (!file_exists(base_path("modules/{$module}"))){
-            mkdir(base_path("modules/{$module}"), 0777, TRUE);
+        if (!file_exists(base_path("modules/{$module}"))) {
+            mkdir(base_path("modules/{$module}"), 0777, true);
             $this->config($module);
+            $this->lang($module);
             $this->http($module);
             $this->model($module);
             $this->views($module);
@@ -55,20 +59,21 @@ class CoreModuleCommand extends Command{
      * Generate Config
      * @param $module
      */
-    protected function config($module){
-        mkdir(base_path("modules/{$module}/Config"), 0777, TRUE);
+    protected function config($module)
+    {
+        mkdir(base_path("modules/{$module}/Config"), 0777, true);
         //menu
         $content = "<?php
 return [
     'name' => '" . $module . "',
-    'route' => route('get.".strtolower($module).".list'),
+    'route' => route('get." . strtolower($module) . ".list'),
     'sort' => 1,
     'active'=> TRUE,
     'icon' => ' icon-menu',
     'middleware' => [],
     'group' => []
 ];";
-        $fp      = fopen(base_path("modules/{$module}/Config/menu.php"), "wb");
+        $fp = fopen(base_path("modules/{$module}/Config/menu.php"), "wb");
         fwrite($fp, $content);
         fclose($fp);
 
@@ -80,7 +85,24 @@ return [
     'display_name' => '" . ucfirst($module) . "',
     'group' => []
 ];";
-        $fp      = fopen(base_path("modules/{$module}/Config/permission.php"), "wb");
+        $fp = fopen(base_path("modules/{$module}/Config/permission.php"), "wb");
+        fwrite($fp, $content);
+        fclose($fp);
+    }
+
+    /**
+     * Generate Multiple language
+     * @param $module
+     */
+    protected function lang($module)
+    {
+        mkdir(base_path("modules/{$module}/Langs/en"), 0777, true);
+        //lang file
+        $content = "<?php
+return [
+    'name' => '" . $module . "',
+];";
+        $fp = fopen(base_path("modules/{$module}/Langs/en/language.php"), "wb");
         fwrite($fp, $content);
         fclose($fp);
     }
@@ -89,20 +111,21 @@ return [
      * Generate Model
      * @param $module
      */
-    protected function model($module){
-        mkdir(base_path("modules/{$module}/Model"), 0777, TRUE);
+    protected function model($module)
+    {
+        mkdir(base_path("modules/{$module}/Model"), 0777, true);
         $content = '<?php
 
-namespace Modules\\'.$module.'\\Model;
+namespace Modules\\' . $module . '\\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class '.$module.' extends Model
+class ' . $module . ' extends Model
 {
     use SoftDeletes;
 
-    protected $table = "'.strtolower($module).'";
+    protected $table = "' . strtolower($module) . '";
 
     protected $primaryKey = "id";
 
@@ -115,7 +138,7 @@ class '.$module.' extends Model
 
 }
 ';
-        $fp      = fopen(base_path("modules/{$module}/Model/{$module}.php"), "wb");
+        $fp = fopen(base_path("modules/{$module}/Model/{$module}.php"), "wb");
         fwrite($fp, $content);
         fclose($fp);
     }
@@ -124,20 +147,21 @@ class '.$module.' extends Model
      * Generate Http folder
      * @param $module
      */
-    protected function http($module){
-        $path_current = base_path().'/modules/Base';
-        mkdir(base_path("modules/{$module}/Http"), 0777, TRUE);
+    protected function http($module)
+    {
+        $path_current = base_path() . '/modules/Base';
+        mkdir(base_path("modules/{$module}/Http"), 0777, true);
         // Controller
-        mkdir(base_path("modules/{$module}/Http/Controllers"), 0777, TRUE);
+        mkdir(base_path("modules/{$module}/Http/Controllers"), 0777, true);
         $content = '<?php
 
-namespace Modules\\'.$module.'\Http\Controllers;
+namespace Modules\\' . $module . '\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 
-class '.$module.'Controller extends Controller{
+class ' . $module . 'Controller extends Controller{
 
     /**
      * Create a new authentication controller instance.
@@ -149,25 +173,25 @@ class '.$module.'Controller extends Controller{
     }
 
     public function index(Request $request){
-        return view("'.$module.'::index");
+        return view("' . $module . '::index");
     }
 }
 ';
-        $fp      = fopen(base_path("modules/{$module}/Http/Controllers/{$module}Controller.php"), "wb");
+        $fp = fopen(base_path("modules/{$module}/Http/Controllers/{$module}Controller.php"), "wb");
         fwrite($fp, $content);
         fclose($fp);
         /************************************************************************************/
 
-      //Validation
-        mkdir(base_path("modules/{$module}/Http/Requests"), 0777, TRUE);
+        //Validation
+        mkdir(base_path("modules/{$module}/Http/Requests"), 0777, true);
         $content = '<?php
 
-namespace Modules\\'.$module.'\Http\Requests;
+namespace Modules\\' . $module . '\Http\Requests;
 
 use App\AppHelpers\Helper;
 use Illuminate\Foundation\Http\FormRequest;
 
-class '.$module.'Request extends FormRequest
+class ' . $module . 'Request extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -209,51 +233,52 @@ class '.$module.'Request extends FormRequest
 }
 ';
 
-        $fp      = fopen(base_path("modules/{$module}/Http/Requests/{$module}Request.php"), "wb");
+        $fp = fopen(base_path("modules/{$module}/Http/Requests/{$module}Request.php"), "wb");
         fwrite($fp, $content);
         fclose($fp);
 
         /*****************************************************************************************/
 
         //Route
-        mkdir(base_path("modules/{$module}/Http/Routes"), 0777, TRUE);
+        mkdir(base_path("modules/{$module}/Http/Routes"), 0777, true);
 
         $content = '<?php
 use Illuminate\Support\Facades\Route;
 
-Route::prefix("'.strtolower($module).'")->group(function (){
-    Route::get("/", "'.$module.'Controller@index")->name("get.'.strtolower($module).'.list");
+Route::prefix("' . strtolower($module) . '")->group(function (){
+    Route::get("/", "' . $module . 'Controller@index")->name("get.' . strtolower($module) . '.list");
 });
 ';
-        $fp      = fopen(base_path("modules/{$module}/Http/Routes/admin.php"), "wb");
+        $fp = fopen(base_path("modules/{$module}/Http/Routes/admin.php"), "wb");
         fwrite($fp, $content);
         fclose($fp);
 
         $content2 = '<?php
 use Illuminate\Support\Facades\Route;
 ';
-        $fp      = fopen(base_path("modules/{$module}/Http/Routes/web.php"), "wb");
+        $fp = fopen(base_path("modules/{$module}/Http/Routes/web.php"), "wb");
         fwrite($fp, $content2);
         fclose($fp);
 
     }
 
-    protected function views($module){
-        mkdir(base_path("modules/{$module}/Views"), 0777, TRUE);
+    protected function views($module)
+    {
+        mkdir(base_path("modules/{$module}/Views"), 0777, true);
         $content = '@extends("Base::layouts.master")
 
 @section("content")
-    <div id="'.strtolower($module).'-module">
+    <div id="' . strtolower($module) . '-module">
         <div class="breadcrumb-line">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">'.$module.'</a></li>
+                    <li class="breadcrumb-item"><a href="#">' . $module . '</a></li>
                 </ol>
             </nav>
         </div>
         <div id="head-page" class="d-flex justify-content-between">
-            <div class="page-title"><h3>'.$module.' Listing</h3></div>
+            <div class="page-title"><h3>' . $module . ' Listing</h3></div>
             <div class="group-btn">
                 <a href="#" class="btn btn-primary"><i class="fa fa-plus"></i> &nbsp; Add New</a>
             </div>
@@ -270,7 +295,7 @@ use Illuminate\Support\Facades\Route;
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="text-input">'.$module.' name</label>
+                                <label for="text-input">' . $module . ' name</label>
                                 <input type="text" class="form-control" id="text-input" name="name" value="">
                             </div>
                         </div>
@@ -313,7 +338,7 @@ use Illuminate\Support\Facades\Route;
     </div>
 @endsection';
 
-        $fp      = fopen(base_path("modules/{$module}/Views/index.blade.php"), "wb");
+        $fp = fopen(base_path("modules/{$module}/Views/index.blade.php"), "wb");
         fwrite($fp, $content);
         fclose($fp);
 

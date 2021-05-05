@@ -36,7 +36,11 @@ V. Run permission
      
         php artisan permissions:update
 
-VI. Add new Module                  
+VI. Generate Application Key:
+
+        php artisan key:generate
+
+VII. Add new Module                  
     Run this command:
     
         php artisan make:module {name}

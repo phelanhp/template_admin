@@ -77,6 +77,7 @@ class PermissionCommand extends Command{
         $permission_role_other_list = $permission_role_others->where('role_id', '<>', $admin_role->id)
             ->groupBy('permission_id')
             ->get();
+
         foreach($permission_role_other_list as $value){
             if(empty($value->permission)){
                 $permission_role_others->where('permission_id', $value->permission_id)
