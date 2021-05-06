@@ -30,7 +30,7 @@ class CreateUsersTable extends Migration{
         DB::table('users')->insert(
             [
                 'name'       => 'Administrator',
-                'email'      => 'admin@admin.hp',
+                'email'      => 'admin@gmail.com',
                 'created_at' => '2020-10-15 23:30:41',
                 'updated_at' => '2020-10-20 22:17:19'
             ]);

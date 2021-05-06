@@ -19,17 +19,6 @@ class CreateSettingsTable extends Migration
             $table->string('key');
             $table->string('value');
         });
-
-        DB::table('settings')->insert([
-            ['key' => 'MAIL_DRIVER', 'value' => 'smtp'],
-            ['key' => 'MAIL_HOST', 'value' => 'smtp.gmail.com'],
-            ['key' => 'MAIL_PORT', 'value' => 587],
-            ['key' => 'MAIL_USERNAME', 'value' => NULL],
-            ['key' => 'MAIL_PASSWORD', 'value' => NULL],
-            ['key' => 'MAIL_ENCRYPTION', 'value' => 'tls'],
-            ['key' => 'MAIL_ADDRESS', 'value' => NULL],
-            ['key' => 'MAIL_NAME', 'value' => NULL],
-        ]);
     }
 
     /**
