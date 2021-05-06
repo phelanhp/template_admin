@@ -52,6 +52,16 @@ class ServiceProvider extends BaseServiceProvider
                 $this->loadJSONTranslationsFrom($module_path . '/Langs');
             }
 
+            if (File::exists($module_path . "/Helper")) {
+                // Tất cả files có tại thư mục helpers
+                $helper_dir = File::allFiles($module_path . "/Helper");
+                // khai báo helpers
+                foreach ($helper_dir as $key => $value) {
+                    $file = $value->getPathName();
+                    require $file;
+                }
+            }
+
             if (is_dir($module_path . '/Views')) {
                 $this->loadViewsFrom($module_path . '/Views', $module);
             }
