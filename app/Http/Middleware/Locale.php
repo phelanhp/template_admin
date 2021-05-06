@@ -17,6 +17,9 @@ class Locale
     public function handle($request, Closure $next)
     {
         $locale = $request->session()->get('locale');
+        if($locale === 'cn'){
+            $locale = 'zh-TW';
+        }
         App::setLocale($locale);
         return $next($request);
     }

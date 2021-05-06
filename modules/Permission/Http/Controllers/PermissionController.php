@@ -57,7 +57,7 @@ class PermissionController extends Controller{
             }
         }
 
-        $request->session()->flash('success', 'Access control updated successfully.');
+        $request->session()->flash('success', trans('Access control updated successfully.'));
 
         return back();
     }

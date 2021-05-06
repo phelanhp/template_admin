@@ -5,15 +5,15 @@
         <div class="breadcrumb-line">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('get.setting.list') }}">Setting</a></li>
-                    <li class="breadcrumb-item active">Email Config</li>
+                    <li class="breadcrumb-item"><a href="#">{{ trans('Home') }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('get.setting.list') }}">{{ trans('Setting') }}</a></li>
+                    <li class="breadcrumb-item active">{{ trans('Email Config') }}</li>
                 </ol>
             </nav>
         </div>
 
         <div id="head-page" class="d-flex justify-content-between">
-            <div class="page-title"><h3>Email Config</h3></div>
+            <div class="page-title"><h3>{{ trans('Email Config') }}</h3></div>
         </div>
     </div>
 
@@ -25,7 +25,7 @@
                     <div class="col-md-6">
                         <div class="form-group row">
                             <div class="col-md-4">
-                                <label for="name">Host</label>
+                                <label for="name">{{ trans('Host') }}</label>
                             </div>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" id="host" name="MAIL_HOST"
@@ -34,7 +34,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-4">
-                                <label for="name">Port</label>
+                                <label for="name">{{ trans('Port') }}</label>
                             </div>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" id="port" name="MAIL_PORT"
@@ -43,7 +43,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-4">
-                                <label for="name">Protocol</label>
+                                <label for="name">{{ trans('Protocol') }}</label>
                             </div>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" id="protocol" name="MAIL_ENCRYPTION"
@@ -52,7 +52,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-4">
-                                <label for="name">Username</label>
+                                <label for="name">{{ trans('Username') }}</label>
                             </div>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" id="username" name="MAIL_USERNAME"
@@ -61,7 +61,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-4">
-                                <label for="name">Password</label>
+                                <label for="name">{{ trans('Password') }}</label>
                             </div>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" id="password" name="MAIL_PASSWORD"
@@ -70,7 +70,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-4">
-                                <label for="name">SMTP Server</label>
+                                <label for="name">{{ trans('SMTP Server') }}</label>
                             </div>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" id="driver" name="MAIL_DRIVER"
@@ -81,7 +81,7 @@
                     <div class="col-md-6">
                         <div class="form-group row">
                             <div class="col-md-4">
-                                <label for="name">Email from address</label>
+                                <label for="name">{{ trans('Email from address') }}</label>
                             </div>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" id="host" name="MAIL_ADDRESS"
@@ -90,7 +90,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-4">
-                                <label for="name">Email from name</label>
+                                <label for="name">{{ trans('Email from name') }}</label>
                             </div>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" id="host" name="MAIL_NAME"
@@ -100,8 +100,8 @@
                     </div>
                 </div>
                 <div class="input-group mt-5">
-                    <button type="submit" class="btn btn-primary mr-2">Save</button>
-                    <button type="reset" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary mr-2">{{ trans('Save') }}</button>
+                    <button type="reset" class="btn btn-default" data-dismiss="modal">{{ trans('Cancel') }}</button>
                 </div>
             </form>
         </div>

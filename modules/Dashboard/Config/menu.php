@@ -3,7 +3,7 @@
 use Modules\Base\Model\Status;
 
 return [
-    'name'       => trans('Dashboard::language.name'),
+    'name'       => trans('Dashboard'),
     'route'      => route('dashboard'),
     'sort'       => 1,
     'active'     => TRUE,

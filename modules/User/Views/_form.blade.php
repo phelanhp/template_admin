@@ -3,7 +3,7 @@
         @csrf
         <div class="form-group row">
             <div class="col-md-4">
-                <label for="name">Name</label>
+                <label for="name">{{ trans('Name') }}</label>
             </div>
             <div class="col-md-8">
                 <input type="text" id="name" class="form-control" name="name" value="{{ $user->name ?? old('name') }}">
@@ -11,7 +11,7 @@
         </div>
         <div class="form-group row">
             <div class="col-md-4">
-                <label for="email">Email</label>
+                <label for="email">{{ trans('Email') }}</label>
             </div>
             <div class="col-md-8">
                 <input type="email" id="email" class="form-control" name="email"
@@ -24,7 +24,7 @@
         @can('update-user-role')
             <div class="form-group row">
                 <div class="col-md-4">
-                    <label for="role">Role</label>
+                    <label for="role">{{ trans('Role') }}</label>
                 </div>
                 <div class="col-md-8">
                     {!! Form::select('role_id',$roles,$user->role->id ?? NULL,['id' => 'role', 'class' => 'select2 form-control', 'style' => 'width: 100%']) !!}
@@ -32,7 +32,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-md-4">
-                    <label for="status">Status</label>
+                    <label for="status">{{ trans('Status') }}</label>
                 </div>
                 <div class="col-md-8">
                     <select name="status" id="status" class="select2 form-control">
@@ -46,7 +46,7 @@
         @endcan
         <div class="form-group row">
             <div class="col-md-4">
-                <label for="password">Password</label>
+                <label for="password">{{ trans('Password') }}</label>
             </div>
             <div class="col-md-8">
                 <input type="password" id="password" class="form-control" name="password">
@@ -54,15 +54,15 @@
         </div>
         <div class="form-group row">
             <div class="col-md-4">
-                <label for="password_re_enter">Re-enter Password</label>
+                <label for="password_re_enter">{{ trans('Re-enter Password') }}</label>
             </div>
             <div class="col-md-8">
                 <input type="password" id="password_re_enter" class="form-control" name="password_re_enter">
             </div>
         </div>
         <div class="input-group mt-5">
-            <button type="submit" id="save" class="btn btn-primary mr-2">Save</button>
-            <button type="reset" class="btn btn-default">Reset</button>
+            <button type="submit" id="save" class="btn btn-primary mr-2">{{ trans('Save') }}</button>
+            <button type="reset" class="btn btn-default">{{ trans('Reset') }}</button>
         </div>
     </form>
 </div>

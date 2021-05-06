@@ -1,7 +1,7 @@
 <?php
 return [
     'name'         => 'roles',
-    'display_name' => 'Roles',
+    'display_name' => trans('Roles'),
     'group'        => [
         [
             'name'         => 'role-create',

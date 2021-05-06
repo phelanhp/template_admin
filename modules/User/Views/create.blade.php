@@ -4,9 +4,9 @@
         <div class="breadcrumb-line">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('get.user.list') }}">Users</a></li>
-                    <li class="breadcrumb-item active">Create User</li>
+                    <li class="breadcrumb-item"><a href="#">{{ trans('Home') }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('get.user.list') }}">{{ trans('User') }}</a></li>
+                    <li class="breadcrumb-item active">{{ trans('Create User') }}</li>
                 </ol>
             </nav>
         </div>

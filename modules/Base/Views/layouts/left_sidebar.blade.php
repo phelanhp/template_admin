@@ -50,7 +50,7 @@ $menu = Helper::config_menu_merge();
                             <li>
                                 <a href="{{ !empty($item['route']) ? $item['route'] : '#' }}">
                                     <i class="{{ !empty($item['icon']) ? $item['icon'] : NULL }}"></i>
-                                    <span class="title-link">{{ !empty($item['name']) ? $item['name'] : 'N/A' }}</span>
+                                    <span class="title-link">{{ !empty($item['name']) ? trans($item['name']) : 'N/A' }}</span>
                                 </a>
                             </li>
                         @endif

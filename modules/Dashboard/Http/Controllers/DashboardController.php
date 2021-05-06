@@ -27,7 +27,7 @@ class DashboardController extends Controller{
     }
 
     public function errorPage(){
-        $error = 'This action is unauthorized.';
+        $error = trans('This action is unauthorized.');
         return view('Dashboard::403', compact('error'));
     }
 

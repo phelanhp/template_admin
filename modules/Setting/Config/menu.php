@@ -1,6 +1,6 @@
 <?php
 return [
-    'name' => trans('Setting::language.name'),
+    'name' => trans('Settings'),
     'route' => route('get.setting.list'),
     'sort' => 99,
     'active'=> TRUE,

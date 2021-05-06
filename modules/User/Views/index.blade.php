@@ -5,36 +5,36 @@
         <div class="breadcrumb-line">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Users</a></li>
+                    <li class="breadcrumb-item"><a href="#">{{ trans('Home') }}</a></li>
+                    <li class="breadcrumb-item"><a href="#">{{ trans('User Listing') }}</a></li>
                 </ol>
             </nav>
         </div>
         <div id="head-page" class="d-flex justify-content-between">
-            <div class="page-title"><h3>User Listing</h3></div>
+            <div class="page-title"><h3>{{ trans('User Listing') }}</h3></div>
             <div class="group-btn">
-                <a href="{{ route('get.user.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> &nbsp; Add New</a>
+                <a href="{{ route('get.user.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> &nbsp; {{ trans('Add New') }}</a>
             </div>
         </div>
         <!--Search box-->
         <div class="search-box">
             <div class="card">
                 <div class="card-header" data-toggle="collapse" data-target="#form-search-box" aria-expanded="false" aria-controls="form-search-box">
-                    <div class="title">Search</div>
+                    <div class="title">{{ trans('Search') }}</div>
                 </div>
                 <div class="card-body collapse show" id="form-search-box">
                     <form action="" method="get">
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="text-input">User name</label>
+                                    <label for="text-input">{{ trans('User name') }}</label>
                                     <input type="text" class="form-control" id="text-input" name="name" value="{{$filter['name'] ?? NULL}}">
                                 </div>
                             </div>
                         </div>
                         <div class="input-group">
-                            <button type="submit" class="btn btn-primary mr-2">Search</button>
-                            <button type="button" class="btn btn-default clear">Cancel</button>
+                            <button type="submit" class="btn btn-primary mr-2">{{ trans('Search') }}</button>
+                            <button type="button" class="btn btn-default clear">{{ trans('Cancel') }}</button>
                         </div>
                     </form>
                 </div>
@@ -45,8 +45,9 @@
                 <div class="card-body">
                     <div class="sumary">
                     <span class="listing-information">
-                            Showing <b>{{($users->currentpage()-1)*$users->perpage()+1}} to {{($users->currentpage()-1) * $users->perpage() + $users->count()}}</b>
-                            of  <b>{{$users->total()}}</b> entries
+                            {{ trans('Showing') }} <b>{{($users->currentpage()-1)*$users->perpage()+1}}
+                            {{ trans('to') }} {{($users->currentpage()-1) * $users->perpage() + $users->count()}}</b>
+                            {{ trans('of') }}  <b>{{$users->total()}}</b> {{ trans('entries') }}
                         </span>
                     </div>
                     <div class="table-responsive">
@@ -54,15 +55,15 @@
                             <thead>
                             <tr>
                                 <th width="50px">#</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
+                                <th>{{ trans('Name') }}</th>
+                                <th>{{ trans('Email') }}</th>
+                                <th>{{ trans('Role') }}</th>
                                 @can('update-user-role')
-                                    <th width="200px">Status</th>
+                                    <th width="200px">{{ trans('Status') }}</th>
                                 @endcan
-                                <th width="200px">Created At</th>
-                                <th width="200px">Updated At</th>
-                                <th width="200px" class="action">Action</th>
+                                <th width="200px">{{ trans('Created At') }}</th>
+                                <th width="200px">{{ trans('Updated At') }}</th>
+                                <th width="200px" class="action">{{ trans('Action') }}</th>
                             </tr>
                             </thead>
                             <tbody>

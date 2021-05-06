@@ -1,7 +1,7 @@
 <?php
 return [
     'name'         => 'permission-view',
-    'display_name' => 'Access Control',
+    'display_name' => trans('Access Control'),
     'group'        => [
         [
             'name'         => 'permission-update',

@@ -1,7 +1,21 @@
 <?php
 
-if (!function_exists('gg_trans')) {
-    function gg_trans($string){
+use Illuminate\Support\Facades\App;
+use Stichoza\GoogleTranslate\GoogleTranslate;
+
+if(!function_exists('gg_trans')) {
+    /**
+     * @param $string
+     * @return string|null
+     * @throws ErrorException
+     */
+    function gg_trans($string): ?string {
+        $target = (App::getLocale() === 'cn') ? 'zh-TW' : App::getLocale();
+        if(App::getLocale() !== 'en') {
+            $tr = new GoogleTranslate($target);
+            return $tr->translate($string);
+        }
+
         return $string;
     }
 }

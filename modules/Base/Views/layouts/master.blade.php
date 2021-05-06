@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('assets/select2/css/select2.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/datetimepicker/css/datetimepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/backend/css/main.css') }}">
-    <title>Document</title>
+    <title>System</title>
 </head>
 <body>
 
@@ -27,15 +27,15 @@
     <div class="d-flex align-items-center">
         <div class="mr-2" style="width: 160px;">
             <select class="select2 form-control" id="change-language" name="dropdown">
-                <option value="en" @if(session()->get('locale') === 'en') selected @endif>English (US)</option>
-                <option value="cn" @if(session()->get('locale') === 'cn') selected @endif>Chinese (Traditional)</option>
+                <option value="en" @if(session()->get('locale') === 'en') selected @endif>{{ trans('English') }} (US)</option>
+                <option value="cn" @if(session()->get('locale') === 'cn') selected @endif>{{ trans('Chinese') }} (Traditional)</option>
             </select>
         </div>
         <div class="right-sidebar float-right" data-toggle="collapse" href="#list-menu" aria-expanded="false">
             <a href="#" class="text-light">{{ \Illuminate\Support\Facades\Auth::user()->name ?? null }}</a>
             <ul class="collapse list-unstyled border menu-sidebar" id="list-menu">
-                <li><a href="{{ route('get.profile.update') }}"> Profile</a></li>
-                <li><a href="{{ route('get.logout.admin') }}"> Đăng xuất</a></li>
+                <li><a href="{{ route('get.profile.update') }}"> {{ trans('Profile') }}</a></li>
+                <li><a href="{{ route('get.logout.admin') }}"> {{ trans('Log out') }}</a></li>
             </ul>
         </div>
     </div>

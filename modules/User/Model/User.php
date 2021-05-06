@@ -79,11 +79,11 @@ class User extends BaseUser
     public function changePassword($password)
     {
         $detail = [
-            'subject' => 'Change Your Password',
-            'title'   => 'Change Your Password',
-            'body'    => "<div><p>We noticed that you have changed your password recently</p></div>
-                            <div><p>Your password has been changed to: <h3>$password</h3></p></div>
-                            <div><p style=\"color:red\">Please contact with us if it is not you.</a></div>",
+            'subject' => trans('Change Your Password'),
+            'title'   => trans('Change Your Password'),
+            'body'    => "<div><p>".trans('We noticed that you have changed your password recently')."</p></div>
+                            <div><p>".trans('Your password has been changed to: ')."<h3>$password</h3></p></div>
+                            <div><p style=\"color:red\">".trans('Please contact with us if it is not you.')."</a></div>",
         ];
 
         /** Send email */
@@ -97,7 +97,7 @@ class User extends BaseUser
         try{
             Mail::send($mail);
         }catch(Exception $e){
-            Session::flash('danger', 'Can not send email. Please check your Email config.');
+            Session::flash('danger', trans('Can not send email. Please check your Email config.'));
         }
     }
 

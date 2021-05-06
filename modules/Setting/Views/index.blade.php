@@ -5,13 +5,13 @@
         <div class="breadcrumb-line">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Setting</a></li>
+                    <li class="breadcrumb-item"><a href="#">{{ trans('Home') }}</a></li>
+                    <li class="breadcrumb-item"><a href="#">{{ trans('Settings') }}</a></li>
                 </ol>
             </nav>
         </div>
         <div id="head-page" class="d-flex justify-content-between">
-            <div class="page-title"><h3>Settings</h3></div>
+            <div class="page-title"><h3>{{ trans('Settings') }}</h3></div>
         </div>
     </div>
     <div class="card">
@@ -19,8 +19,8 @@
             <div class="row">
                 <div class="col-md-6">
                     <a href="{{ route("get.setting.emailConfig") }}" class="btn btn-light btn-setting">
-                        <span>Email Setting</span>
-                        <div>To configuration the site email and SMTP</div>
+                        <span>{{ trans('Email Setting') }}</span>
+                        <div>{{ trans('To configuration the site email and SMTP') }}</div>
                     </a>
                 </div>
             </div>

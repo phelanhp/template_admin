@@ -8,8 +8,8 @@ use Modules\Permission\Model\PermissionRole;
         <div class="breadcrumb-line">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Roles</a></li>
+                    <li class="breadcrumb-item"><a href="#">{{ trans('Home') }}</a></li>
+                    <li class="breadcrumb-item"><a href="#">{{ trans('Access Control') }}</a></li>
                 </ol>
             </nav>
         </div>
@@ -24,9 +24,9 @@ use Modules\Permission\Model\PermissionRole;
                                 <thead>
                                 <tr>
                                     <th width="50px">#</th>
-                                    <th>Name</th>
+                                    <th>{{ trans('Name') }}</th>
                                     @foreach($roles as $role)
-                                        <th>{{ $role->name }}</th>
+                                        <th>{{ gg_trans($role->name) }}</th>
                                     @endforeach
                                 </tr>
                                 </thead>
@@ -36,7 +36,7 @@ use Modules\Permission\Model\PermissionRole;
                                     @if($permission->parent_id === 0)
                                         <tr>
                                             <td>{{ $key++ }}</td>
-                                            <td><b>{{ $permission->display_name }}</b></td>
+                                            <td><b>{{ trans($permission->display_name) }}</b></td>
                                             @foreach($roles as $role)
                                                 <td>
                                                     <input type="checkbox" name='role_permission[{{$role->id}}][]' value="{{ $permission->id }}"
@@ -50,7 +50,7 @@ use Modules\Permission\Model\PermissionRole;
                                             @foreach($permission->child as $child)
                                                 <tr>
                                                     <td>{{ $key++ }}</td>
-                                                    <td><div class="ml-2">- {{ $child->display_name }}</div></td>
+                                                    <td><div class="ml-2">- {{ trans($child->display_name) }}</div></td>
                                                     @foreach($roles as $role)
                                                         <td>
                                                             <input type="checkbox" name='role_permission[{{$role->id}}][]' value="{{ $child->id }}"
@@ -68,7 +68,7 @@ use Modules\Permission\Model\PermissionRole;
                             </table>
                         </div>
                         <div class="btn-group mt-3">
-                            <button type="submit" class="btn btn-primary mr-2">Save</button>
+                            <button type="submit" class="btn btn-primary mr-2">{{ trans('Save') }}</button>
                         </div>
                     </div>
                 </div>

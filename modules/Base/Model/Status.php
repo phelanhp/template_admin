@@ -19,13 +19,13 @@ class Status extends Model{
         $name = '';
         switch ($status){
             case self::STATUS_ACTIVE:
-                $name = 'Active';
+                $name = trans('Active');
                 break;
             case self::STATUS_INACTIVE:
-                $name = 'Inactive';
+                $name = trans('Inactive');
                 break;
             case self::STATUS_PENDING:
-                $name = 'Pending';
+                $name = trans('Pending');
                 break;
         }
 

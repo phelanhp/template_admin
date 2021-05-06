@@ -1,6 +1,6 @@
 <?php
 return [
     'name' => 'settings',
-    'display_name' => 'Setting',
+    'display_name' => trans('Setting'),
     'group' => []
 ];

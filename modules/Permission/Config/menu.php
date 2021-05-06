@@ -3,7 +3,7 @@
 use Modules\Base\Model\Status;
 
 return [
-    'name'       => trans('Permission::language.name'),
+    'name'       => trans('Access Control'),
     'route'      => route('get.access_control.index'),
     'sort'       => 99,
     'active'     => TRUE,

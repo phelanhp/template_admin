@@ -1,7 +1,7 @@
 <?php
 return [
     'name'         => 'users',
-    'display_name' => 'Users',
+    'display_name' => trans('Users'),
     'group'        => [
         [
             'name'         => 'user-create',
