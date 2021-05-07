@@ -4,10 +4,12 @@ I. How to Clone a Specific Branch?
    Run this command:
     
         git clone --branch <branchname> <remote-repo-url>
+        git clone --branch laravel_admin https://github.com/phelanhp/template_admin.git
        
    Or:
     
         git clone -b <branchname> <remote-repo-url>
+        git clone -b laravel_admin https://github.com/phelanhp/template_admin.git
      
    Here -b is just an alias for --branch
     

@@ -27,8 +27,11 @@
     <div class="d-flex align-items-center">
         <div class="mr-2" style="width: 160px;">
             <select class="select2 form-control" id="change-language" name="dropdown">
-                <option value="en" @if(session()->get('locale') === 'en') selected @endif>{{ trans('English') }} (US)</option>
-                <option value="cn" @if(session()->get('locale') === 'cn') selected @endif>{{ trans('Chinese') }} (Traditional)</option>
+                <option value="en" @if(session()->get('locale') === 'en') selected @endif>{{ trans('English') }}(US)
+                </option>
+                <option value="cn" @if(session()->get('locale') === 'cn') selected @endif>{{ trans('Chinese') }}
+                    (Traditional)
+                </option>
             </select>
         </div>
         <div class="right-sidebar float-right" data-toggle="collapse" href="#list-menu" aria-expanded="false">
@@ -62,6 +65,7 @@
 {{--<footer>© 2018 Admin Template by Phelan</footer>--}}
 </body>
 <script src="{{ asset('assets/jquery/jquery-3.5.1.min.js') }}"></script>
+<script src="{{ asset('assets/bootstrap/js/popper.min.js') }}"></script>
 <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/bootstrap/datetimepicker/js/datetimepicker.min.js') }}"></script>
 <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
@@ -73,6 +77,7 @@
 <script>
     $(document).ready(function () {
         $('.select2').select2();
+        $('[data-toggle="tooltip"]').tooltip()
         if ($('.alert-primary').html() !== undefined) {
             $('.alert-danger').css('top', '120px');
         }

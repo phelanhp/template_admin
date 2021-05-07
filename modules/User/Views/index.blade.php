@@ -13,13 +13,15 @@
         <div id="head-page" class="d-flex justify-content-between">
             <div class="page-title"><h3>{{ trans('User Listing') }}</h3></div>
             <div class="group-btn">
-                <a href="{{ route('get.user.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> &nbsp; {{ trans('Add New') }}</a>
+                <a href="{{ route('get.user.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i>
+                    &nbsp; {{ trans('Add New') }}</a>
             </div>
         </div>
         <!--Search box-->
         <div class="search-box">
             <div class="card">
-                <div class="card-header" data-toggle="collapse" data-target="#form-search-box" aria-expanded="false" aria-controls="form-search-box">
+                <div class="card-header" data-toggle="collapse" data-target="#form-search-box" aria-expanded="false"
+                     aria-controls="form-search-box">
                     <div class="title">{{ trans('Search') }}</div>
                 </div>
                 <div class="card-body collapse show" id="form-search-box">
@@ -28,7 +30,8 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="text-input">{{ trans('User name') }}</label>
-                                    <input type="text" class="form-control" id="text-input" name="name" value="{{$filter['name'] ?? NULL}}">
+                                    <input type="text" class="form-control" id="text-input" name="name"
+                                           value="{{$filter['name'] ?? null}}">
                                 </div>
                             </div>
                         </div>
@@ -73,10 +76,13 @@
                                     <td>{{ $key++ }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td>{{ $user->roles->first()->role->name ?? 'N/A' }}</td>
+                                    <td>{{ $user->getRoleAttribute()->name ?? 'N/A' }}</td>
                                     @can('update-user-role')
                                         <td>
-                                            <input type="checkbox" class="checkbox-style checkbox-item user-status" data-id="{{ $user->id }}" @if($user->status == \Modules\Base\Model\Status::STATUS_ACTIVE) checked @endif value="1">
+                                            <input type="checkbox" class="checkbox-style checkbox-item user-status"
+                                                   data-id="{{ $user->id }}"
+                                                   @if($user->status == \Modules\Base\Model\Status::STATUS_ACTIVE) checked
+                                                   @endif value="1">
                                         </td>
                                     @endcan
                                     <td>{{ \Carbon\Carbon::parse($user->created_at)->format('d/m/Y H:i:s')}}</td>
@@ -84,7 +90,10 @@
                                     <td class="link-action">
                                         <a href="{{ route('get.user.update',$user->id) }}" class="btn btn-primary mr-2">
                                             <i class="fas fa-pencil-alt"></i></a>
-                                        <a href="{{ route('get.user.delete',$user->id) }}" class="btn btn-danger btn-delete"><i class="fas fa-trash-alt"></i></a>
+                                        @if(Auth::user()->id !== $user->id && ($user->getRoleAttribute()->id ?? NULL)!== \Modules\Role\Model\Role::getAdminRole()->id)
+                                            <a href="{{ route('get.user.delete',$user->id) }}"
+                                               class="btn btn-danger btn-delete"><i class="fas fa-trash-alt"></i></a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

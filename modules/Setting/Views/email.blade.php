@@ -29,8 +29,8 @@
                                 <label for="name">{{ trans('Host') }}</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="host" name="MAIL_HOST"
-                                       value="{{ $setting->getValuebyKey(\Modules\Setting\Model\Email::MAIL_HOST) }}">
+                                <input type="text" class="form-control" id="host" name="{{ \Modules\Setting\Model\MailConfig::MAIL_HOST }}"
+                                       value="{{ $mail_config[\Modules\Setting\Model\MailConfig::MAIL_HOST] ?? NULL}}">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -38,8 +38,8 @@
                                 <label for="name">{{ trans('Port') }}</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="port" name="MAIL_PORT"
-                                       value="{{ $setting->getValuebyKey(\Modules\Setting\Model\Email::MAIL_PORT) }}">
+                                <input type="text" class="form-control" id="host" name="{{ \Modules\Setting\Model\MailConfig::MAIL_PORT }}"
+                                       value="{{ $mail_config[\Modules\Setting\Model\MailConfig::MAIL_PORT]  ?? NULL }}">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -47,8 +47,8 @@
                                 <label for="name">{{ trans('Protocol') }}</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="protocol" name="MAIL_ENCRYPTION"
-                                       value="{{ $setting->getValuebyKey(\Modules\Setting\Model\Email::PROTOCOL) }}">
+                                <input type="text" class="form-control" id="host" name="{{ \Modules\Setting\Model\MailConfig::PROTOCOL }}"
+                                       value="{{ $mail_config[\Modules\Setting\Model\MailConfig::PROTOCOL]  ?? NULL }}">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -56,8 +56,8 @@
                                 <label for="name">{{ trans('Username') }}</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="username" name="MAIL_USERNAME"
-                                       value="{{ $setting->getValuebyKey(\Modules\Setting\Model\Email::MAIL_USERNAME) }}">
+                                <input type="text" class="form-control" id="host" name="{{ \Modules\Setting\Model\MailConfig::MAIL_USERNAME }}"
+                                       value="{{ $mail_config[\Modules\Setting\Model\MailConfig::MAIL_USERNAME]  ?? NULL }}">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -65,8 +65,8 @@
                                 <label for="name">{{ trans('Password') }}</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="password" name="MAIL_PASSWORD"
-                                       value="{{ $setting->getValuebyKey(\Modules\Setting\Model\Email::MAIL_PASSWORD) }}">
+                                <input type="text" class="form-control" id="host" name="{{ \Modules\Setting\Model\MailConfig::MAIL_PASSWORD }}"
+                                       value="{{ $mail_config[\Modules\Setting\Model\MailConfig::MAIL_PASSWORD]  ?? NULL }}">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -74,8 +74,8 @@
                                 <label for="name">{{ trans('SMTP Server') }}</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="driver" name="MAIL_DRIVER"
-                                       value="{{ $setting->getValuebyKey(\Modules\Setting\Model\Email::MAIL_DRIVER) }}">
+                                <input type="text" class="form-control" id="host" name="{{ \Modules\Setting\Model\MailConfig::MAIL_DRIVER }}"
+                                       value="{{ $mail_config[\Modules\Setting\Model\MailConfig::MAIL_DRIVER]  ?? NULL }}">
                             </div>
                         </div>
                     </div>
@@ -85,8 +85,8 @@
                                 <label for="name">{{ trans('Email from address') }}</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="host" name="MAIL_ADDRESS"
-                                       value="{{ $setting->getValuebyKey(\Modules\Setting\Model\Email::MAIL_ADDRESS) }}">
+                                <input type="text" class="form-control" id="host" name="{{ \Modules\Setting\Model\MailConfig::MAIL_ADDRESS }}"
+                                       value="{{ $mail_config[\Modules\Setting\Model\MailConfig::MAIL_ADDRESS]  ?? NULL }}">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -94,8 +94,8 @@
                                 <label for="name">{{ trans('Email from name') }}</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="host" name="MAIL_NAME"
-                                       value="{{ $setting->getValuebyKey(\Modules\Setting\Model\Email::MAIL_NAME) }}">
+                                <input type="text" class="form-control" id="host" name="{{ \Modules\Setting\Model\MailConfig::MAIL_NAME }}"
+                                       value="{{ $mail_config[\Modules\Setting\Model\MailConfig::MAIL_NAME]  ?? NULL }}">
                             </div>
                         </div>
                     </div>

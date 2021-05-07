@@ -11,7 +11,7 @@ if(!function_exists('gg_trans')) {
      */
     function gg_trans($string): ?string {
         $target = (App::getLocale() === 'cn') ? 'zh-TW' : App::getLocale();
-        if(App::getLocale() !== 'en') {
+        if(!empty($target) && $target !== 'en') {
             $tr = new GoogleTranslate($target);
             return $tr->translate($string);
         }

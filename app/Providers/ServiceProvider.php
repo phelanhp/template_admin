@@ -24,7 +24,7 @@ class ServiceProvider extends BaseServiceProvider
                 function () use ($module_path, $module) {
                     /** Route admin */
                     $route_path_admin = $module_path . '/Http/Routes/admin.php';
-                    if ($module !== 'Auth') {
+                    if ($module !== 'Auth' && $module !== 'Base') {
                         Route::middleware(['admin'])
                             ->prefix('admin')
                             ->group(function () use ($route_path_admin) {

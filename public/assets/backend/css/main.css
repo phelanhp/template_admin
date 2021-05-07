@@ -177,11 +177,6 @@ a {
 
 table tr th.action {
   width: 150px;
-  text-align: center;
-}
-table tr td.link-action {
-  display: flex;
-  justify-content: center;
 }
 table tr td .btn {
   min-width: 20px;

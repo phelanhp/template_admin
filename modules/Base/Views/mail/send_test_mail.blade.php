@@ -8,6 +8,6 @@
 <div>
     {!! $body !!}
 </div>
-<p>Thank you</p>
+<p>{{ trans('Thanks and Best regards!') }}</p>
 </body>
 </html>

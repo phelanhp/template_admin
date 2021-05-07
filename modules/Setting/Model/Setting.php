@@ -18,9 +18,9 @@ class Setting extends Model
      * @param $key
      * @return mixed
      */
-    public function getValueByKey($key)
+    public static function getValueByKey($key)
     {
-        $setting = Setting::where('key', $key)->first();
+        $setting = self::where('key', $key)->first();
 
         if (!empty($setting)){
             return $setting->value;

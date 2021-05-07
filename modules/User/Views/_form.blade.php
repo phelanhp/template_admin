@@ -1,3 +1,10 @@
+@php
+    use App\AppHelpers\Helper;
+    use Modules\Role\Model\Role;
+
+    $segment = Helper::segment(2);
+    $role_admin_id = Role::getAdminRole()->id;
+@endphp
 <div class="col-md-6">
     <form action="" method="post">
         @csrf
@@ -15,8 +22,8 @@
             </div>
             <div class="col-md-8">
                 <input type="email" id="email" class="form-control" name="email"
-                       @if(\Illuminate\Support\Facades\Auth::user()->role->name !== \Modules\Role\Model\Role::ADMINISTRATOR)
-                           readonly=""
+                       @if($segment === "update" && Auth::user()->getRoleAttribute()->id !== $role_admin_id)
+                       readonly=""
                        @endif
                        value="{{ $user->email ?? old('email') }}">
             </div>
@@ -27,7 +34,7 @@
                     <label for="role">{{ trans('Role') }}</label>
                 </div>
                 <div class="col-md-8">
-                    {!! Form::select('role_id',$roles,$user->role->id ?? NULL,['id' => 'role', 'class' => 'select2 form-control', 'style' => 'width: 100%']) !!}
+                    {!! Form::select('role_id',$roles,$user->role->id ?? null,['id' => 'role', 'class' => 'select2 form-control', 'style' => 'width: 100%']) !!}
                 </div>
             </div>
             <div class="form-group row">

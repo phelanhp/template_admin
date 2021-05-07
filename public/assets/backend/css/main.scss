@@ -211,15 +211,9 @@ table {
     tr {
         th.action {
             width: 150px;
-            text-align: center;
         }
 
         td {
-            &.link-action {
-                display: flex;
-                justify-content: center;
-            }
-
             .btn {
                 min-width: 20px;
             }

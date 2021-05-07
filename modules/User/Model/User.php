@@ -2,22 +2,19 @@
 
 namespace Modules\User\Model;
 
-use App\Http\Mail\SendMail;
+use App\AppHelpers\Helper;
 use App\User as BaseUser;
-use Exception;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Session;
 
 /**
  * Class User
  *
  * @package Modules\User\Model
  */
-class User extends BaseUser
-{
+class User extends BaseUser{
 
     use SoftDeletes;
 
@@ -25,8 +22,7 @@ class User extends BaseUser
 
     protected $guarded = [];
 
-    public static function filter($filter)
-    {
+    public static function filter($filter){
         $query = self::query();
         if(isset($filter['name'])){
             $query->where('name', 'LIKE', '%' . $filter['name'] . '%');
@@ -35,8 +31,7 @@ class User extends BaseUser
         return $query;
     }
 
-    public function save(array $options = [])
-    {
+    public function save(array $options = []){
         $insert = Request::all();
         $this->beforeSave($this->attributes, $insert);
         parent::save($options);
@@ -46,75 +41,28 @@ class User extends BaseUser
     /**
      *
      */
-    public function beforeSave($old_attributes, $insert)
-    {
+    public function beforeSave($old_attributes, $insert){
     }
 
     /**
      * @param $insert
-     * @return bool
      */
-    public function afterSave($insert)
-    {
-        if(isset($insert['role_id'])){
-            $role_id = (int)$insert['role_id'];
-            if(!empty($role_id)){
-                if(!empty($this->getRoleAttribute())){
-                    UserRole::where('user_id', (int)$this->id)->update(['role_id' => $role_id]);
-                }else{
-                    $user_role          = new UserRole();
-                    $user_role->user_id = $this->id;
-                    $user_role->role_id = $role_id;
-                    $user_role->save();
-                }
-            }
-        }
-
-        return TRUE;
-    }
-
-    /**
-     * Send mail after change password
-     */
-    public function changePassword($password)
-    {
-        $detail = [
-            'subject' => trans('Change Your Password'),
-            'title'   => trans('Change Your Password'),
-            'body'    => "<div><p>".trans('We noticed that you have changed your password recently')."</p></div>
-                            <div><p>".trans('Your password has been changed to: ')."<h3>$password</h3></p></div>
-                            <div><p style=\"color:red\">".trans('Please contact with us if it is not you.')."</a></div>",
-        ];
-
-        /** Send email */
-        $mail = new SendMail();
-        $mail->to($this->email)
-            ->subject($detail['subject'])
-            ->title($detail['title'])
-            ->body($detail['body'])
-            ->view('User::mail.mail_change_password');
-
-        try{
-            Mail::send($mail);
-        }catch(Exception $e){
-            Session::flash('danger', trans('Can not send email. Please check your Email config.'));
-        }
+    public function afterSave($insert){
+        /** Update user role */
+        UserRole::updateUserRole($this, $insert['role_id'] ?? null);
     }
 
     /**
      * @return HasMany
      */
-    public function roles()
-    {
+    public function roles(){
         return $this->hasMany(UserRole::class);
     }
 
     /**
-     * @return mixed belongsTo Role
-     * Use like this: $this->getRoleAttribute()
+     * @return null
      */
-    public function getRoleAttribute()
-    {
-        return $this->roles->first()->role ?? NULL;
+    public function getRoleAttribute(){
+        return $this->roles->first()->role ?? null;
     }
 }
