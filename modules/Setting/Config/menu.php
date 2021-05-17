@@ -1,10 +1,11 @@
 <?php
 return [
-    'name' => trans('Settings'),
-    'route' => route('get.setting.list'),
-    'sort' => 99,
-    'active'=> TRUE,
-    'icon' => 'fas fa-cog',
+    'id'         => 'setting',
+    'name'       => trans('Settings'),
+    'route'      => route('get.setting.list'),
+    'sort'       => 99,
+    'active'     => true,
+    'icon'       => 'fas fa-cog',
     'middleware' => ['settings'],
-    'group' => []
+    'group'      => []
 ];

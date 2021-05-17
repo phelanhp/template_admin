@@ -19,7 +19,7 @@
     <!-- Logo -->
     <div id="logo" class="logo d-flex justify-content-between">
         <img src="/logo/logo.png" alt="logo">
-        <button id="menu-button" class="btn border-0 bg-transparent menu-button">
+        <button id="menu-button" class="btn border-0 menu-button">
             <i class="fas fa-bars"></i>
         </button>
     </div>

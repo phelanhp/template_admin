@@ -54,6 +54,9 @@ a {
     display: none;
   }
 }
+.topbar .logo .menu-button {
+  background-color: #848484;
+}
 .topbar .logo .menu-button:focus {
   box-shadow: none;
 }
@@ -237,7 +240,7 @@ table tr td .btn {
   z-index: 999;
   background: white;
   width: 220px;
-  top: 130px;
+  top: 0;
   box-shadow: 4px 5px 15px #ababab;
 }
 
